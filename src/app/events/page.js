@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Container } from "@mui/material";
 import dynamic from "next/dynamic";
 import { getEventData } from "@/contentful/data";
+import EventList from "@/components/EventList";
 
 const Calendar = dynamic(
   () => import("@/components/Calendar"),
@@ -19,6 +20,7 @@ export default async function Events() {
         </Typography>
         <Calendar events={events} />
       </Box>
+      <EventList />
     </Container>
   );
 }

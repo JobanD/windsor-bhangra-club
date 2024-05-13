@@ -39,7 +39,7 @@ export default async function MeetTheTeamPage() {
                 <Image
                   src={t.imageUrl || `url('/blank-person.jpeg')`}
                   alt={t.name}
-                  className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover grayscale hover:grayscale-0"
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover grayscale-0 hover:grayscale"
                   width="100"
                   height="100"
                 />
