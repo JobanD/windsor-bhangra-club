@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Container, Typography, Link, Grid } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 // icons
 import InstagramLogo from "../../public/instagram.svg";
@@ -9,26 +9,20 @@ import FacebookLogo from "../../public/facebook.svg";
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-primary-light to-primary-dark py-5 text-white">
-      <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" gutterBottom>
-              IPCHAS
-            </Typography>
-            <Typography variant="subtitle1">
-              Something here to give the footer a purpose!
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" gutterBottom>
-              Follow Us
-            </Typography>
-            <Box display="flex" justifyContent="start" alignItems="center">
+      <div className="max-w-screen-lg mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center sm:text-left">
+          <div>
+            <h6 className="text-lg font-bold mb-2">IPCHAS</h6>
+            <p>Something here to give the footer a purpose!</p>
+          </div>
+          <div>
+            <h6 className="text-lg font-bold mb-2">Follow Us</h6>
+            <div className="flex justify-center sm:justify-start items-center space-x-4">
               <Link
                 href="https://www.instagram.com/windsorbhangraclub/"
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ mr: 1, display: "inline-flex" }}
+                className="inline-flex"
               >
                 <Image
                   src={InstagramLogo}
@@ -42,7 +36,7 @@ const Footer = () => {
                 href="https://www.facebook.com/windsorbhangra/"
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ display: "inline-flex" }}
+                className="inline-flex"
               >
                 <Image
                   src={FacebookLogo}
@@ -52,18 +46,18 @@ const Footer = () => {
                   className="filter brightness-0 invert"
                 />
               </Link>
-            </Box>
+            </div>
             {/* Add more social media links */}
-          </Grid>
-        </Grid>
-        <Typography variant="body2" align="center" sx={{ pt: 4 }}>
+          </div>
+        </div>
+        <p className="text-center pt-4 text-sm">
           {"© "}
           {new Date().getFullYear()}{" "}
-          <Link color="inherit" href="/">
+          <a className="text-white hover:underline" href="/">
             IPCHAS
-          </Link>
-        </Typography>
-      </Container>
+          </a>
+        </p>
+      </div>
     </footer>
   );
 };

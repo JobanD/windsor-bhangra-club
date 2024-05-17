@@ -1,18 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { useToast } from "@/components/ui/use-toast";
 
 const ContactForm = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { pending } = useFormStatus();
+  const { toast } = useToast();
 
   const [emailData, setEmailData] = useState({
     email: "",
@@ -70,79 +64,67 @@ const ContactForm = ({ children }) => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    console.log("HAPPENING");
+    toast({
+      title: "Message sent successfully!",
+      description:
+        "We have received your message and will get back to you shortly.",
+      status: "success",
+      duration: 6000,
+    });
+    handleClose();
+  }, [open, toast]);
+
   return (
-    <>
-      <Box
-        component="form"
-        onSubmit={handleSendEmail}
-        noValidate
-        sx={{ mt: 3 }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Message Us Directly
-        </Typography>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="email"
+    <form onSubmit={handleSendEmail} noValidate className="mt-3 space-y-4">
+      <h2 className="text-2xl font-bold mb-4">Message Us Directly</h2>
+      <div className="flex flex-col space-y-4">
+        <input
+          type="email"
           name="email"
+          placeholder="Email"
           value={emailData.email}
           onChange={handleInputChange}
-          sx={{ background: "white" }}
-        />
-        <TextField
-          margin="normal"
           required
-          fullWidth
-          label="subject"
+          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+        />
+        <input
+          type="text"
           name="subject"
+          placeholder="Subject"
           value={emailData.subject}
           onChange={handleInputChange}
-          sx={{ background: "white" }}
-        />
-        <TextField
-          margin="normal"
           required
-          fullWidth
-          label="name"
+          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+        />
+        <input
+          type="text"
           name="name"
+          placeholder="Name"
           value={emailData.name}
           onChange={handleInputChange}
-          sx={{ background: "white" }}
-        />
-        <TextField
-          margin="normal"
           required
-          fullWidth
-          multiline
-          rows={6}
-          label="message"
+          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+        />
+        <textarea
           name="message"
+          placeholder="Message"
           value={emailData.message}
           onChange={handleInputChange}
-          sx={{ background: "white" }}
+          required
+          rows="6"
+          className="p-2 border border-gray-300 rounded-md w-full bg-white"
         />
-        <Button
-          aria-disabled={pending}
+        <button
           type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          disabled={pending}
+          className="w-full py-2 px-4 bg-primary text-white font-bold rounded-md hover:bg-secondary-dark transition"
         >
           Send
-        </Button>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Message sent successfully!
-          </Alert>
-        </Snackbar>
-      </Box>
-    </>
+        </button>
+      </div>
+    </form>
   );
 };
 

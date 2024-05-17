@@ -1,82 +1,42 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
+import EventList from "@/components/EventList";
 
 const HeroSection = () => {
   return (
-    <Box
-      sx={{
-        backgroundImage: `url('/heroNew.jpg')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        position: "relative",
-        "::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the color and opacity
-        },
-        "> *": { position: "relative" },
-      }}
+    <div
+      className="relative flex flex-col justify-center items-center h-screen bg-cover bg-center text-white"
+      style={{ backgroundImage: `url('/heroNew.jpg')` }}
     >
-      <Typography
-        variant="h1"
-        component="h1"
-        gutterBottom
-        color="primary"
-        fontWeight="bold"
-        sx={{
-          textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
-          mt: { xs: -8, md: 0 },
-          mx: { xs: 3 },
-        }}
-      >
-        <span className="text-secondary font-bold">W</span>indsor <br />
-        <span className="text-secondary font-bold">B</span>hangra <br />
-        <span className="text-secondary font-bold">C</span>lub
-      </Typography>
-      <Typography
-        variant="h5"
-        component="h2"
-        gutterBottom
-        color="secondary"
-        sx={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)", mx: { xs: 2 } }}
-      >
-        Welcome, please explore the many things IPCHAS (explain what it stands
-        for) offers.
-      </Typography>
-      <Box>
-        <Button
-          variant="contained"
-          color="secondary"
-          component={Link}
-          href="/about"
-          size="large"
-          sx={{ mr: 2, fontWeight: "bold" }}
-        >
-          Learn More
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          component={Link}
-          href="/events"
-          size="large"
-          sx={{ mr: 2, fontWeight: "bold" }}
-        >
-          Events
-        </Button>
-      </Box>
-    </Box>
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="relative z-10 text-center px-4">
+        <h1 className="text-6xl font-bold text-primary mt-[-2rem] sm:mt-0 lg:text-8xl">
+          <span className="text-secondary">W</span>indsor <br />
+          <span className="text-secondary">B</span>hangra <br />
+          <span className="text-secondary">C</span>lub
+        </h1>
+        <h2 className="text-2xl text-secondary mt-4">
+          Welcome, please explore the many things IPCHAS offers.
+        </h2>
+        <div className="mt-8 flex justify-center space-x-4">
+          <Link
+            href="/about"
+            className="bg-secondary text-black py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
+          >
+            Learn More
+          </Link>
+          <Link
+            href="/events"
+            className="bg-secondary text-black py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
+          >
+            Events
+          </Link>
+        </div>
+      </div>
+      <div className="absolute top-0 right-0 w-full lg:w-1/3 p-4 z-10">
+        <EventList />
+      </div>
+    </div>
   );
 };
 

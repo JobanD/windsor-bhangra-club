@@ -37,11 +37,12 @@ const Calendar = ({ events }) => {
         initialView="dayGridMonth"
         events={events}
         eventClick={handleEventClick}
-        height={getCalendarHeight()}
+        // height={getCalendarHeight()}
+        // height={auto}
         aspectRatio={1.35} // Adjust as needed for your design
-        windowResize={function (view) {
-          this.setOption("height", getCalendarHeight());
-        }}
+        // windowResize={function (view) {
+        //   this.setOption("height", getCalendarHeight());
+        // }}
         headerToolbar={{
           left: "prev,next",
           center: "title",

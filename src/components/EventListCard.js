@@ -1,25 +1,18 @@
 import React from "react";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 
 const EventCard = ({ event }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        marginBottom: "20px",
-        border: "1px solid #ccc",
-        padding: "10px",
-      }}
-    >
-      <div
-        style={{ marginRight: "20px", fontWeight: "bold", fontSize: "20px" }}
-      >
+    <Alert className="flex flex-col sm:flex-row items-start sm:items-center mb-5 p-2 border border-gray-300 rounded-md bg-secondary-light text-secondary-dark max-w-full lg:max-w-md mx-auto">
+      <div className="font-bold text-lg sm:text-xl mr-0 sm:mr-3 whitespace-nowrap">
         {new Date(event.start).toLocaleDateString()}
       </div>
-      <div>
-        <h4>{event.title}</h4>
-        <p>{event.description}</p>
+      <div className="flex-grow">
+        <AlertTitle className="text-base sm:text-lg font-semibold">
+          {event.title}
+        </AlertTitle>
       </div>
-    </div>
+    </Alert>
   );
 };
 

@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 95.7%; /* #f4f4f3 */
+    --foreground: 0 0% 0%; /* #000000 */
+    --card: 0 0% 95.7%; /* #f4f4f3 */
+    --card-foreground: 0 0% 0%; /* #000000 */
+    --popover: 0 0% 95.7%; /* #f4f4f3 */
+    --popover-foreground: 0 0% 0%; /* #000000 */
+    --primary: 118.6 57.3% 21.4%; /* #234f1e */
+    --primary-light: 99.7 44.1% 38.2%; /* #4a7d39 */
+    --primary-dark: 118.6 100% 0%; /* #002a00 */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
+    --secondary: 40.5 91.7% 50.2%; /* #eda80e */
+    --secondary-light: 45.1 100% 70.4%; /* #ffdb4b */
+    --secondary-dark: 40.5 100% 35.1%; /* #b57800 */
+    --secondary-foreground: 0 0% 0%; /* #000000 */
+    --muted: 0 0% 95.7%; /* #f4f4f3 */
+    --muted-foreground: 0 0% 64.9%; /* #a5a6a6 */
+    --accent: 207.3 38.6% 55.7%; /* #69A2B0 */
+    --accent-foreground: 0 0% 0%; /* #000000 */
+    --destructive: 0 77.1% 56.5%; /* #E53935 */
+    --destructive-foreground: 0 0% 100%; /* #ffffff */
+    --border: 0 0% 80%; /* #cccccc */
+    --input: 0 0% 80%; /* #cccccc */
+    --ring: 118.6 57.3% 21.4%; /* #234f1e */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 9%; /* #181818 */
+    --foreground: 0 0% 95%; /* #f4f4f3 */
+    --card: 0 0% 10%; /* #1a1a1a */
+    --card-foreground: 0 0% 95%; /* #f4f4f3 */
+    --popover: 0 0% 9%; /* #181818 */
+    --popover-foreground: 0 0% 95%; /* #f4f4f3 */
+    --primary: 118.6 57.3% 26.5%; /* #234f1e */
+    --primary-foreground: 118.6 57.3% 21.4%; /* #234f1e */
+    --secondary: 40.5 91.7% 50.2%; /* #eda80e */
+    --secondary-foreground: 0 0% 100%; /* #ffffff */
+    --muted: 0 0% 15%; /* #262626 */
+    --muted-foreground: 0 0% 64.9%; /* #a5a6a6 */
+    --accent: 207.3 38.6% 55.7%; /* #69A2B0 */
+    --accent-foreground: 0 0% 100%; /* #ffffff */
+    --destructive: 0 62.8% 30.6%; /* #991c1c */
+    --destructive-foreground: 0 85.7% 97.3%; /* #ffebe9 */
+    --border: 0 0% 15%; /* #262626 */
+    --input: 0 0% 15%; /* #262626 */
+    --ring: 118.6 57.3% 21.4%; /* #234f1e */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
