@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -7,6 +7,7 @@ const ContactForm = ({ children }) => {
   const [open, setOpen] = useState(false);
   const { pending } = useFormStatus();
   const { toast } = useToast();
+  const isFirstRender = useRef(true); // Ref to track initial render
 
   const [emailData, setEmailData] = useState({
     email: "",
@@ -14,8 +15,6 @@ const ContactForm = ({ children }) => {
     name: "",
     message: "",
   });
-
-  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +28,7 @@ const ContactForm = ({ children }) => {
     e.preventDefault();
     try {
       console.log("Sending emailData:", emailData);
-      const response = await fetch("./contact/api", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,11 +36,8 @@ const ContactForm = ({ children }) => {
         body: JSON.stringify(emailData),
       });
 
-      console.log("Response status:", response.status);
       const data = await response.json();
-      console.log("Response data:", data);
       if (data.success) {
-        setMessage(data.message);
         setOpen(true);
         setEmailData({
           email: "",
@@ -50,12 +46,9 @@ const ContactForm = ({ children }) => {
           message: "",
         });
       } else {
-        setMessage(data.message);
         setOpen(true);
       }
     } catch (error) {
-      console.error("Error sending email:", error);
-      setMessage("Error sending email");
       setOpen(true);
     }
   };
@@ -65,15 +58,21 @@ const ContactForm = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("HAPPENING");
-    toast({
-      title: "Message sent successfully!",
-      description:
-        "We have received your message and will get back to you shortly.",
-      status: "success",
-      duration: 6000,
-    });
-    handleClose();
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (open) {
+      toast({
+        title: "Message sent successfully!",
+        description:
+          "We have received your message and will get back to you shortly.",
+        status: "success",
+        duration: 6000,
+      });
+      handleClose();
+    }
   }, [open, toast]);
 
   return (

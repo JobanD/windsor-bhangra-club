@@ -1,7 +1,10 @@
 export async function getEventData() {
   try {
     const response = await fetch(
-      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=events&include=10`
+      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=events&include=10`,
+      {
+        next: { revalidate: 60 },
+      }
     );
 
     if (!response.ok) {

@@ -35,7 +35,7 @@ export async function POST(req, res) {
     });
   } catch (e) {
     console.error("Error: ", e);
-    return Response.json(
+    return NextResponse.json(
       {
         success: false,
         message: "Failed to send",

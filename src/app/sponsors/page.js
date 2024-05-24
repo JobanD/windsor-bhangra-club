@@ -1,8 +1,4 @@
 import React from "react";
-import { Box, Typography, Container } from "@mui/material";
-import Image from "next/image";
-
-// components
 import SponsorCard from "@/components/SponsorCard";
 
 const SponsorsPage = () => {
@@ -26,17 +22,25 @@ const SponsorsPage = () => {
       description: "Description for Sponsor Three.",
     },
     {
-      name: "Sponsor Three",
+      name: "Sponsor Four",
       image: "/windsor_bhangra_group.jpeg",
-      link: "http://sponsor3.com",
-      description: "Description for Sponsor Three.",
+      link: "http://sponsor4.com",
+      description: "Description for Sponsor Four.",
     },
   ];
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold text-center mb-6">Our Sponsors</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8">
+    <div className="container mx-auto p-6">
+      <div className="text-center py-5 px-1">
+        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light text-center rounded-lg shadow-md mx-5 p-5">
+          <h1 className="text-5xl font-bold mb-4">Our Sponsors</h1>
+          <div className="text-xl">
+            Our sponsors make everything we do possible, please check out
+            everything they have to offer to further support our community.
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {sponsors.map((sponsor) => (
           <SponsorCard key={sponsor.name} {...sponsor} />
         ))}

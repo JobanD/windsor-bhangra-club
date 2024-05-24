@@ -17,7 +17,9 @@ export default async function Events() {
         <h1 className="text-2xl font-bold mb-4">Event Calendar</h1>
         <Calendar events={events} />
       </div>
-      <EventList />
+      <div className="my-10">
+        <EventList />
+      </div>
     </div>
   );
 }
