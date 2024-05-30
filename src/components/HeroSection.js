@@ -1,33 +1,42 @@
 import React from "react";
 import Link from "next/link";
 import EventList from "@/components/EventList";
+import Image from "next/image";
+import logo from "../../public/logo-no-bg.png";
 
 const HeroSection = () => {
   return (
     <div
-      className="relative flex flex-col justify-center items-center h-screen bg-cover bg-center text-white"
-      style={{ backgroundImage: `url('/heroNew.jpg')` }}
+      className="relative flex flex-col justify-center items-center h-screen text-black"
+      style={{ backgroundColor: "hsl(40, 36%, 90%)" }}
     >
-      <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative z-10 text-center px-4">
+        <Image
+          src={logo}
+          alt="Logo"
+          width={300}
+          height={300}
+          className="mx-auto mb-8"
+          placeholder="blur"
+        />
         <h1 className="text-6xl font-bold text-primary mt-[-2rem] sm:mt-0 lg:text-8xl">
-          <span className="text-secondary">W</span>indsor <br />
-          <span className="text-secondary">B</span>hangra <br />
-          <span className="text-secondary">C</span>lub
+          Windsor <br />
+          Bhangra <br />
+          Club
         </h1>
-        <h2 className="text-2xl text-secondary mt-4">
+        <h2 className="text-2xl text-primary-dark mt-4">
           Welcome, please explore the many things IPCHAS offers.
         </h2>
         <div className="mt-8 flex justify-center space-x-4">
           <Link
             href="/about"
-            className="bg-secondary text-black py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
+            className="bg-secondary text-secondary-foreground py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
           >
             Learn More
           </Link>
           <Link
             href="/events"
-            className="bg-secondary text-black py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
+            className="bg-secondary text-secondary-foreground py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
           >
             Events
           </Link>

@@ -1,14 +1,11 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
-export async function POST(req, res) {
+export async function POST(request) {
   try {
-    console.log("GOT HERE IN TRY BLOCK");
-    const { email, subject, name, message } = await req.json();
-    console.log(email, subject, name, message);
-    // const body = await req.json(); // Correctly await the parsed JSON body
-    // console.log("Received email data:", body);
+    const { amount, name, email } = await request.json();
 
+    // Send an email with the payment details
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       host: process.env.SMTP_HOST,
@@ -22,23 +19,25 @@ export async function POST(req, res) {
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: "joban.d555@gmail.com",
-      subject: subject,
-      text: message,
+      to: [email, "joban.d555@gmail.com"],
+      subject: "Payment Confirmation",
+      text: `Thank you for your payment of $${(amount / 100).toFixed(2)}. 
+      Name: ${name}
+      Email: ${email}`,
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(`email sent: ${info.response}`);
+    console.log(`Email sent: ${info.response}`);
     return NextResponse.json({
       success: true,
-      message: "Email successfully sent!",
+      message: "Payment confirmation email sent successfully!",
     });
   } catch (e) {
     console.error("Error: ", e);
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to send",
+        message: "Failed to send confirmation email",
       },
       { status: 500 }
     );

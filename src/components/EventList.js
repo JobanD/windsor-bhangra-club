@@ -13,7 +13,7 @@ export default async function EventList() {
 
   return (
     <div className="w-full lg:w-3/4 mx-auto">
-      <h2 className="text-3xl lg:text-4xl font-bold text-secondary mb-4 text-center">
+      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4 text-center">
         Upcoming Events
       </h2>
       <div className="space-y-2">

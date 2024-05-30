@@ -13,12 +13,12 @@ export default async function Events() {
 
   return (
     <div className="container mx-auto px-4">
+      <div className="my-10">
+        <EventList />
+      </div>
       <div className="my-4">
         <h1 className="text-2xl font-bold mb-4">Event Calendar</h1>
         <Calendar events={events} />
-      </div>
-      <div className="my-10">
-        <EventList />
       </div>
     </div>
   );

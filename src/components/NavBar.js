@@ -37,13 +37,13 @@ const Navbar = () => {
 
   const menuItems = [
     { href: "/about", label: "About Us", icon: BookOpenText },
-    { href: "/team", label: "Our Team", icon: Users },
+    // { href: "/team", label: "Our Team", icon: Users },
     { href: "/registration", label: "Registration", icon: ClipboardPen },
-    { href: "/sponsors", label: "Sponsors", icon: Crown },
-    { href: "/donate", label: "Donate", icon: Gift },
+    // { href: "/sponsors", label: "Sponsors", icon: Crown },
+    // { href: "/donate", label: "Donate", icon: Gift },
     { href: "/events", label: "Event Calendar", icon: CalendarDays },
     { href: "/contact", label: "Contact Us", icon: ContactRound },
-    { href: "/services", label: "Media", icon: Film },
+    // { href: "/services", label: "Media", icon: Film },
   ];
 
   return (

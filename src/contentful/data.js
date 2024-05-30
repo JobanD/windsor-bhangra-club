@@ -43,7 +43,10 @@ export async function getContactData() {
 export async function getPersonData() {
   try {
     const response = await fetch(
-      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=person&include=10`
+      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=person&include=10`,
+      {
+        next: { revalidate: 60 },
+      }
     );
 
     if (!response.ok) {

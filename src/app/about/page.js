@@ -75,9 +75,9 @@ export default async function AboutPage() {
                 <CardTitle className="text-4xl font-bold mb-2">
                   {section.aboutSectionTitle}
                 </CardTitle>
-                <CardDescription className="text-xl">
+                <div className="text-lg">
                   {documentToReactComponents(section.aboutSectionDescription)}
-                </CardDescription>
+                </div>
               </CardHeader>
             </CardContent>
             {index % 2 !== 0 && section.imageUrl && (

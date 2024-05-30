@@ -5,10 +5,16 @@ import { fetchDataFromContentful, fetchImageData } from "@/contentful/data";
 import {
   Card,
   CardContent,
-  CardHeader,
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default async function MeetTheTeamPage() {
   // Fetch basic team data
@@ -33,53 +39,78 @@ export default async function MeetTheTeamPage() {
   );
 
   return (
-    <div>
-      <div className="text-center py-5 px-1">
-        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light text-center rounded-lg shadow-md mx-5 p-5">
+    <div className="container mx-auto px-4">
+      <header className="text-center py-10">
+        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light rounded-lg shadow-md mx-5 p-10">
           <h1 className="text-5xl font-bold mb-4">Meet The Team</h1>
-          <div className="text-xl">
+          <p className="text-xl">
             WBC and IPCHAS would never be what it is today without our marvelous
             team.
-          </div>
+          </p>
         </div>
-      </div>
+      </header>
       <section className="py-10">
+        <div className="bg-primary text-white text-center rounded-lg shadow-md mx-5 p-6 mb-10">
+          <p className="text-lg">
+            Our team is the backbone of WBC and IPCHAS. Each member brings a
+            unique set of skills and a passion for excellence. Together, we
+            strive to achieve greatness and provide the best services to our
+            community. We are proud of our dedicated team and their unwavering
+            commitment.
+          </p>
+        </div>
         <h2 className="text-3xl text-center font-bold mb-6">Our Team</h2>
-        <div className="flex flex-wrap justify-center">
-          {team.map((t, index) => (
-            <Card
-              key={t.name}
-              className="flex flex-col items-center m-4 p-4 bg-secondary-light text-primary-dark rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-            >
-              <div className="overflow-hidden rounded-full w-24 h-24 md:w-32 md:h-32 mb-4">
-                <Image
-                  src={t.imageUrl || "/blank-person.jpeg"}
-                  alt={t.name}
-                  className="object-cover w-full h-full grayscale-0 hover:grayscale"
-                  width={128}
-                  height={128}
-                />
-              </div>
-              <CardContent className="text-center">
-                <CardTitle className="text-lg font-semibold">
-                  {t.name}
-                </CardTitle>
-                <CardDescription className="text-sm text-gray-600">
-                  {t.position}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {team.map((t) => (
+                <CarouselItem
+                  key={t.name}
+                  className="basis-1/2 md:basis-1/4 lg:basis-1/6"
+                >
+                  <div className="p-2">
+                    <Card className="flex flex-col items-center p-4 bg-secondary-light text-primary-dark rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                      <div className="overflow-hidden rounded-full w-16 h-16 md:w-24 md:h-24 mb-4">
+                        <Image
+                          src={t.imageUrl || "/blank-person.jpeg"}
+                          alt={t.name}
+                          className="object-cover w-full h-full grayscale-0 hover:grayscale"
+                          width={96}
+                          height={96}
+                        />
+                      </div>
+                      <CardContent className="text-center">
+                        <CardTitle className="text-sm font-semibold">
+                          {t.name}
+                        </CardTitle>
+                        <CardDescription className="text-xs text-gray-600">
+                          {t.position}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10" />
+          </Carousel>
         </div>
       </section>
       <section className="my-10 text-center">
-        <div className="bg-primary text-white rounded-lg shadow-md mx-5 p-5">
+        <div className="bg-primary text-white rounded-lg shadow-md mx-5 p-10 relative">
+          <div className="absolute inset-0 bg-pattern opacity-10"></div>
           <h2 className="text-4xl font-bold mb-4">Get in Touch</h2>
           <p className="text-lg mb-6">
             Interested in joining our team? We would love to hear from you!
           </p>
           <Link
-            className="px-8 py-3 bg-secondary text-primary-dark rounded-md font-semibold hover:bg-secondary-dark"
+            className="inline-block px-8 py-3 bg-secondary text-primary-dark rounded-md font-semibold hover:bg-secondary-dark transition duration-300"
             href="/registration"
           >
             Join Now!
