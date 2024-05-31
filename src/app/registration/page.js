@@ -6,6 +6,32 @@ import RegistrationForm from "@/components/forms/RegistrationForm";
 
 import banner from "../../../public/windsor_bhanga_banner.jpeg";
 
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Registration - IPCHAS & WBC",
+  description:
+    "Register for upcoming events and programs with IPCHAS and Windsor Bhangraclub. Join us in our mission to promote Punjabi/Sikhi culture and community involvement.",
+  keywords:
+    "registration, sign up, events, programs, IPCHAS, WBC, Windsor Bhangra Club, Punjabi culture, Sikhi culture, Windsor, Ontario, Canada",
+  openGraph: {
+    title: "Registration - IPCHAS & WBC",
+    description:
+      "Register for upcoming events and programs with IPCHAS and Windsor Bhangra Club. Join us in our mission to promote Punjabi/Sikhi culture and community involvement.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Registration - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/registration",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/registration",
+  },
+};
+
 const Page = () => {
   return (
     <div>
@@ -34,8 +60,8 @@ const Page = () => {
       </div>
 
       {/* Brief Description Card */}
-      <div className="container mx-auto mt-8 p-4">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="container mx-auto mt-2 p-4">
+        <div className="bg-secondary-light p-6 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold mb-4 text-center">Get Involved</h2>
           <p className="text-lg text-center">
             Whether you&apos;re looking to join our team, register for an event,

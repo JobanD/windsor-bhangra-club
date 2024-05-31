@@ -10,6 +10,32 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "About Us - IPCHAS & WBC",
+  description:
+    "Learn more about IPCHAS and Windsor Bhangra Club, our mission, vision, and the work we do to promote Punjabi/Sikhi culture and support the Windsor community.",
+  keywords:
+    "about, IPCHAS, WBC, Windsor Bhangra Club, mission, Punjabi culture, Sikhi culture, Windsor, Ontario, Canada",
+  openGraph: {
+    title: "About Us - IPCHAS & WBC",
+    description:
+      "Learn more about IPCHAS and Windsor Bhangra Club, our mission, vision, and the work we do to promote Punjabi/Sikhi culture and support the Windsor community.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "About Us - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/about",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/about",
+  },
+};
+
 export default async function AboutPage() {
   // Fetch basic team data
   const aboutData = await fetchDataFromContentful("aboutPage");

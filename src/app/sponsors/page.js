@@ -19,6 +19,32 @@ const sponsorLevels = [
   "Additional Supporter",
 ];
 
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Sponsors - IPCHAS & WBC",
+  description:
+    "Meet our sponsors who support IPCHAS and Windsor Bhangra Club. Learn how you can become a sponsor and contribute to our mission of promoting Punjabi/Sikhi culture.",
+  keywords:
+    "sponsors, support, IPCHAS, WBC, Windsor Bhangra Club, Punjabi culture, Sikhi culture, Windsor, Ontario, Canada, community support",
+  openGraph: {
+    title: "Sponsors - IPCHAS & WBC",
+    description:
+      "Meet our sponsors who support IPCHAS and Windsor Bhangra Club. Learn how you can become a sponsor and contribute to our mission of promoting Punjabi/Sikhi culture.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Sponsors - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/sponsors",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/sponsors",
+  },
+};
+
 export default async function SponsorsPage() {
   const sponsorData = await fetchDataFromContentful("sponsor", 10);
 

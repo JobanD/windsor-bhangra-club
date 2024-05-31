@@ -7,6 +7,32 @@ import { getContactData } from "@/contentful/data";
 import InstagramLogo from "../../../public/instagram.svg";
 import FacebookLogo from "../../../public/facebook.svg";
 
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Contact Us - IPCHAS & WBC",
+  description:
+    "Get in touch with IPCHAS and Windsor Bhangra Club. We're here to answer your questions and provide information about our programs and events.",
+  keywords:
+    "contact, IPCHAS, WBC, Windsor Bhangra Club, get in touch, Windsor, Ontario, Canada",
+  openGraph: {
+    title: "Contact Us - IPCHAS & WBC",
+    description:
+      "Get in touch with IPCHAS and Windsor Bhangra Club. We're here to answer your questions and provide information about our programs and events.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Contact Us - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/contact",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/contact",
+  },
+};
+
 export default async function ContactPage() {
   const data = await getContactData();
 

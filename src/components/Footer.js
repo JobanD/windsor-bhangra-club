@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,12 +7,34 @@ import FacebookLogo from "../../public/facebook.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-primary-light to-primary-dark py-5 text-white">
+    <footer className="bg-gradient-to-b from-primary-light to-primary-dark py-8 text-white">
       <div className="max-w-screen-lg mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center sm:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left">
           <div>
-            <h6 className="text-lg font-bold mb-2">IPCHAS</h6>
-            <p>Something here to give the footer a purpose!</p>
+            <h6 className="text-lg font-bold mb-2">About IPCHAS</h6>
+            <p>
+              Our mission is to support the Windsor community through cultural
+              preservation and education. Join us in celebrating and preserving
+              Punjabi culture through events, workshops, and more.
+            </p>
+          </div>
+          <div>
+            <h6 className="text-lg font-bold mb-2">Contact Us</h6>
+            <p>
+              Email:{" "}
+              <Link
+                href="mailto:admin@windsorbhangraclub.com"
+                className="underline"
+              >
+                admin@windsorbhangraclub.com
+              </Link>
+            </p>
+            <p>
+              Phone:{" "}
+              <Link href="tel:+1234567890" className="underline">
+                +1 234 567 890
+              </Link>
+            </p>
           </div>
           <div>
             <h6 className="text-lg font-bold mb-2">Follow Us</h6>
@@ -27,8 +48,8 @@ const Footer = () => {
                 <Image
                   src={InstagramLogo}
                   alt="Instagram"
-                  width={50}
-                  height={50}
+                  width={30}
+                  height={30}
                   className="filter brightness-0 invert"
                 />
               </Link>
@@ -41,13 +62,89 @@ const Footer = () => {
                 <Image
                   src={FacebookLogo}
                   alt="Facebook"
-                  width={50}
-                  height={50}
+                  width={30}
+                  height={30}
                   className="filter brightness-0 invert"
                 />
               </Link>
             </div>
-            {/* Add more social media links */}
+          </div>
+        </div>
+        <div className="border-t border-gray-400 mt-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left">
+            <div>
+              <h6 className="text-lg font-bold mb-2">Quick Links</h6>
+              <ul className="space-y-1">
+                <li>
+                  <Link href="/about" className="underline hover:text-gray-300">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/events"
+                    className="underline hover:text-gray-300"
+                  >
+                    Events
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/services"
+                    className="underline hover:text-gray-300"
+                  >
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="underline hover:text-gray-300"
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    className="underline hover:text-gray-300"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h6 className="text-lg font-bold mb-2">Sitemap</h6>
+              <ul className="space-y-1">
+                <li>
+                  <Link href="/" className="underline hover:text-gray-300">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="underline hover:text-gray-300">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/events"
+                    className="underline hover:text-gray-300"
+                  >
+                    Events
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="underline hover:text-gray-300"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <p className="text-center pt-4 text-sm">
@@ -56,6 +153,7 @@ const Footer = () => {
           <a className="text-white hover:underline" href="/">
             IPCHAS
           </a>
+          . All rights reserved.
         </p>
       </div>
     </footer>

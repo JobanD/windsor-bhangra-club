@@ -15,6 +15,7 @@ import {
   CalendarDays,
   ContactRound,
   Film,
+  Newspaper,
 } from "lucide-react"; // Importing icons
 import {
   NavigationMenu,
@@ -41,6 +42,7 @@ const Navbar = () => {
     { href: "/registration", label: "Registration", icon: ClipboardPen },
     // { href: "/sponsors", label: "Sponsors", icon: Crown },
     // { href: "/donate", label: "Donate", icon: Gift },
+    { href: "/news", label: "News", icon: Newspaper },
     { href: "/events", label: "Event Calendar", icon: CalendarDays },
     { href: "/contact", label: "Contact Us", icon: ContactRound },
     // { href: "/services", label: "Media", icon: Film },

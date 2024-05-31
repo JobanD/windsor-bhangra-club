@@ -16,6 +16,32 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Our Team - IPCHAS & WBC",
+  description:
+    "Meet the dedicated team behind IPCHAS and Windsor Bhangra Club. Learn about the individuals who are committed to promoting Punjabi/Sikhi culture and community involvement.",
+  keywords:
+    "team, members, IPCHAS, WBC, Windsor Bhangra Club, Punjabi culture, Sikhi culture, Windsor, Ontario, Canada, community involvement",
+  openGraph: {
+    title: "Our Team - IPCHAS & WBC",
+    description:
+      "Meet the dedicated team behind IPCHAS and Windsor Bhangra Club. Learn about the individuals who are committed to promoting Punjabi/Sikhi culture and community involvement.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Our Team - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/team",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/team",
+  },
+};
+
 export default async function MeetTheTeamPage() {
   // Fetch basic team data
   const teamData = await fetchDataFromContentful("person", 10);

@@ -4,9 +4,31 @@ import { getEventData } from "@/contentful/data";
 import EventList from "@/components/EventList";
 import Calendar from "@/components/Calendar";
 
-// const Calendar = dynamic(() => import("@/components/Calendar"), {
-//   ssr: false, // This will ensure it's only loaded client-side
-// });
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Events - IPCHAS & WBC",
+  description:
+    "Discover upcoming events hosted by IPCHAS and Windsor Bhangra Club. Join us in celebrating and preserving Punjabi/Sikhi culture through community events and activities.",
+  keywords:
+    "events, IPCHAS, WBC, Windsor Bhangra Club, community events, Punjabi culture, Sikhi culture, Windsor, Ontario, Canada",
+  openGraph: {
+    title: "Events - IPCHAS & WBC",
+    description:
+      "Discover upcoming events hosted by IPCHAS and Windsor Bhangra Club. Join us in celebrating and preserving Punjabi/Sikhi culture through community events and activities.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Events - IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/events",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/events",
+  },
+};
 
 export default async function Events() {
   const events = await getEventData();

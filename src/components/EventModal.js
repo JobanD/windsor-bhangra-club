@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 
 function EventModal({ isOpen, onClose, eventDetails }) {
   const modalRef = useRef();
 
   // Function to close modal if clicked outside
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      onClose();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     // Attach the event listener
@@ -17,7 +20,7 @@ function EventModal({ isOpen, onClose, eventDetails }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   // Render nothing if the modal is not open or eventDetails are not available
   if (!isOpen || !eventDetails) return null;
@@ -46,7 +49,7 @@ function EventModal({ isOpen, onClose, eventDetails }) {
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center">
       <div
         ref={modalRef}
-        className="bg-white p-5 rounded-lg shadow-lg max-w-md mx-auto text-center"
+        className="bg-white p-5 rounded-lg shadow-lg max-w-sm mx-auto text-center"
       >
         <h2 className="text-xl font-semibold text-primary mb-2">
           {formattedDate} - {eventDetails.title}

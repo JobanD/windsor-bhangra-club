@@ -76,7 +76,85 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: (theme) => ({
+        sm: {
+          css: {
+            fontSize: theme("fontSize.sm"),
+            h1: {
+              fontSize: theme("fontSize.lg"),
+            },
+            h2: {
+              fontSize: theme("fontSize.md"),
+            },
+            h3: {
+              fontSize: theme("fontSize.base"),
+            },
+            p: {
+              fontSize: theme("fontSize.sm"),
+            },
+          },
+        },
+        DEFAULT: {
+          css: {
+            color: theme("colors.foreground"),
+            a: {
+              color: theme("colors.primary"),
+              "&:hover": {
+                color: theme("colors.primary-dark"),
+              },
+            },
+            h1: {
+              fontSize: theme("fontSize.3xl"),
+              "@screen sm": {
+                fontSize: theme("fontSize.4xl"),
+              },
+              "@screen md": {
+                fontSize: theme("fontSize.5xl"),
+              },
+              "@screen lg": {
+                fontSize: theme("fontSize.6xl"),
+              },
+            },
+            h2: {
+              fontSize: theme("fontSize.2xl"),
+              "@screen sm": {
+                fontSize: theme("fontSize.3xl"),
+              },
+              "@screen md": {
+                fontSize: theme("fontSize.4xl"),
+              },
+              "@screen lg": {
+                fontSize: theme("fontSize.5xl"),
+              },
+            },
+            h3: {
+              fontSize: theme("fontSize.xl"),
+              "@screen sm": {
+                fontSize: theme("fontSize.2xl"),
+              },
+              "@screen md": {
+                fontSize: theme("fontSize.3xl"),
+              },
+              "@screen lg": {
+                fontSize: theme("fontSize.4xl"),
+              },
+            },
+            p: {
+              fontSize: theme("fontSize.base"),
+              "@screen sm": {
+                fontSize: theme("fontSize.lg"),
+              },
+              "@screen md": {
+                fontSize: theme("fontSize.xl"),
+              },
+              "@screen lg": {
+                fontSize: theme("fontSize.2xl"),
+              },
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };

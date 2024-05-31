@@ -1,5 +1,30 @@
-import React from "react";
 import CustomPaymentForm from "@/components/forms/CustomPaymentForm";
+
+export const metadata = {
+  metadataBase: new URL("https://www.windsorbhangraclub.com"),
+  title: "Donate - Support IPCHAS & WBC",
+  description:
+    "Support IPCHAS and Windsor Bhangra Club by making a donation. Your contributions help us promote Punjabi/Sikhi culture and support the Windsor community.",
+  keywords:
+    "donate, support, IPCHAS, WBC, Windsor Bhangra Club, charity, Windsor, Ontario, Canada, Punjabi culture, Sikhi culture",
+  openGraph: {
+    title: "Donate - Support IPCHAS & WBC",
+    description:
+      "Support IPCHAS and Windsor Bhangra Club by making a donation. Your contributions help us promote Punjabi/Sikhi culture and support the Windsor community.",
+    images: [
+      {
+        url: "/public/logo-no-bg.png",
+        width: 800,
+        height: 600,
+        alt: "Donate - Support IPCHAS & WBC",
+      },
+    ],
+    url: "https://www.windsorbhangraclub.com/donate",
+  },
+  alternates: {
+    canonical: "https://www.windsorbhangraclub.com/donate",
+  },
+};
 
 const DonationPage = () => {
   return (
