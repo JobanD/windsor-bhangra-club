@@ -3,14 +3,19 @@ import Link from "next/link";
 import EventList from "@/components/EventList";
 import Image from "next/image";
 import logo from "../../public/logo-no-bg.png";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const HeroSection = () => {
   return (
     <div
-      className="relative flex flex-col justify-center items-center h-screen text-black"
+      className="relative flex flex-col justify-center items-center h-full pb-16 md:h-screen md:pb-0 text-black"
       style={{ backgroundColor: "hsl(40, 36%, 90%)" }}
     >
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-4 m-2">
         <Image
           src={logo}
           alt="Logo"
@@ -42,7 +47,21 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-      <div className="absolute top-0 right-0 w-full lg:w-1/3 p-4 z-10">
+      {/* Popover for mobile screens */}
+      <div className="block md:hidden absolute top-2 right-2 z-20">
+        <Popover>
+          <PopoverTrigger asChild>
+            <button className="bg-secondary text-secondary-foreground p-2 m-2 rounded-md hover:bg-secondary-dark transition">
+              Show Events
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="bg-white p-4 rounded-lg shadow-lg w-80">
+            <EventList />
+          </PopoverContent>
+        </Popover>
+      </div>
+      {/* Event list for larger screens */}
+      <div className="hidden md:block absolute top-0 right-0 w-full lg:w-1/3 p-4 z-10">
         <EventList />
       </div>
     </div>
