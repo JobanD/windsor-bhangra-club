@@ -31,8 +31,8 @@ const Footer = () => {
             </p>
             <p>
               Phone:{" "}
-              <Link href="tel:+1234567890" className="underline">
-                +1 234 567 890
+              <Link href="tel:+15199907464" className="underline">
+                +1 (519) 990-7464
               </Link>
             </p>
           </div>
@@ -89,11 +89,8 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/services"
-                    className="underline hover:text-gray-300"
-                  >
-                    Services
+                  <Link href="/news" className="underline hover:text-gray-300">
+                    News
                   </Link>
                 </li>
                 <li>
@@ -106,10 +103,10 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/privacy-policy"
+                    href="/registration"
                     className="underline hover:text-gray-300"
                   >
-                    Privacy Policy
+                    Registration
                   </Link>
                 </li>
               </ul>
