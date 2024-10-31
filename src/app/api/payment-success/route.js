@@ -19,9 +19,9 @@ export async function POST(request) {
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: [email, "joban.d555@gmail.com"],
+      to: [email, "admin@windsorbhangraclub.com"],
       subject: "Payment Confirmation",
-      text: `Thank you for your payment of $${(amount / 100).toFixed(2)}. 
+      text: `Thank you for your payment of $${(amount / 100).toFixed(2)}.
       Name: ${name}
       Email: ${email}`,
     };
@@ -39,7 +39,7 @@ export async function POST(request) {
         success: false,
         message: "Failed to send confirmation email",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

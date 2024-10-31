@@ -14,7 +14,7 @@ export async function POST(req, res) {
           success: false,
           message: "Bot detected",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(req, res) {
           success: false,
           message: "Invalid email address",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,7 +38,7 @@ export async function POST(req, res) {
           success: false,
           message: "Invalid phone number",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,7 +50,7 @@ export async function POST(req, res) {
           success: false,
           message: "Invalid age",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -76,7 +76,7 @@ export async function POST(req, res) {
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: "joban.d555@gmail.com",
+      to: "admin@windsorbhangraclub.com",
       subject: `Registration Request: ${sanitizedRegisterFor}`,
       text: `Name: ${sanitizedName}\nEmail: ${sanitizedEmail}\nPhone: ${sanitizedPhone}\nRegister For: ${sanitizedRegisterFor}\nAge: ${sanitizedAge}\nSex: ${sanitizedSex}\nAdditional Notes: ${sanitizedNotes}`,
     };
@@ -94,7 +94,7 @@ export async function POST(req, res) {
         success: false,
         message: "Failed to register",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

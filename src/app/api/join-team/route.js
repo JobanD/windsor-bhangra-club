@@ -13,7 +13,7 @@ export async function POST(req, res) {
           success: false,
           message: "Bot detected",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -25,7 +25,7 @@ export async function POST(req, res) {
           success: false,
           message: "Invalid email address",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -37,7 +37,7 @@ export async function POST(req, res) {
           success: false,
           message: "Invalid phone number",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -61,7 +61,7 @@ export async function POST(req, res) {
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
-      to: "joban.d555@gmail.com",
+      to: "admin@windsorbhangraclub.com",
       subject: `Join Team Request: ${sanitizedReason}`,
       text: `Email: ${sanitizedEmail}\nName: ${sanitizedName}\nReason to Join: ${sanitizedReason}\nAdditional Notes: ${sanitizedNotes}\nPhone: ${sanitizedPhone}`,
     };
@@ -79,7 +79,7 @@ export async function POST(req, res) {
         success: false,
         message: "Failed to send",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
