@@ -9,6 +9,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import NewsDescription from "@/components/NewsDescription";
+import MediaModal from "@/components/MediaModal";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
 export const metadata = {
   metadataBase: new URL("https://www.windsorbhangraclub.com"),
@@ -36,9 +39,48 @@ export const metadata = {
   },
 };
 
+// Rich Text Options for rendering hyperlinks and embedded videos
+const richTextOptions = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node, children) => {
+      // Wrap children in a single <p> tag
+      return <p className="mb-4">{children}</p>;
+    },
+    [INLINES.HYPERLINK]: (node, children) => {
+      const { uri } = node.data;
+      return (
+        <a
+          href={uri}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 underline"
+        >
+          {children}
+        </a>
+      );
+    },
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const { file } = node.data.target.fields;
+      if (file.contentType.startsWith("video/")) {
+        return (
+          <div className="my-4">
+            <video controls className="rounded-lg w-full max-w-xl mx-auto">
+              <source src={file.url} type={file.contentType} />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        );
+      }
+      return null;
+    },
+  },
+};
+
 export default async function NewsPage() {
   // Fetch news posts data
   const newsData = await fetchDataFromContentful("newspost", 10);
+
+  console.log("NEWS: ", newsData);
 
   if (!newsData || newsData.error) {
     return <div>Error: {newsData.error}</div>;
@@ -50,16 +92,31 @@ export default async function NewsPage() {
       const images = post.fields.image
         ? await Promise.all(
             post.fields.image.map(
-              async (image) => await fetchImageData(image.sys.id)
-            )
+              async (image) => await fetchImageData(image.sys.id),
+            ),
           )
         : [];
+      const video = post.fields.video || null;
+
+      // Combine images and video into a single media array
+      const media = [
+        ...images.map((image) => ({ type: "image", url: image })),
+        ...(video
+          ? [
+              {
+                type: "video",
+                url: video.fields.file.url,
+                contentType: video.fields.file.contentType,
+              },
+            ]
+          : []),
+      ];
 
       return {
         ...post.fields,
-        images: images,
+        media,
       };
-    })
+    }),
   );
 
   return (
@@ -86,26 +143,14 @@ export default async function NewsPage() {
                 <p className="text-gray-600 mb-4">
                   {new Date(post.date).toLocaleDateString()}
                 </p>
-                <NewsDescription description={post.description} />
+                {/* Render Rich Text description with hyperlinks */}
+                <CardDescription as="div">
+                  {documentToReactComponents(post.description, richTextOptions)}
+                </CardDescription>
               </CardHeader>
-              {post.images.length > 0 && (
-                <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
-                  {post.images.map((image, idx) => (
-                    <div
-                      key={idx}
-                      className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
-                    >
-                      <Image
-                        src={`${image}`}
-                        alt={`Image for ${post.title}`}
-                        width={600}
-                        height={400}
-                        className="rounded-lg object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+
+              {/* Pass media to the client-side modal component */}
+              {post.media.length > 0 && <MediaModal media={post.media} />}
             </CardContent>
           </Card>
         ))}
