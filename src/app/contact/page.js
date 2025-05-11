@@ -75,7 +75,7 @@ export default async function ContactPage() {
               />
             </a>
             <a
-              href="https://www.facebook.com/windsorbhangra/"
+              href="https://www.facebook.com/windsorbhangraclub/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex"
