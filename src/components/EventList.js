@@ -12,18 +12,25 @@ export default async function EventList() {
   );
 
   return (
-    <div className="w-full lg:w-3/4 mx-auto">
-      <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4 text-center">
-        Upcoming Events
-      </h2>
-      <div className="space-y-2">
+    <div className="w-full">
+      <div className="flex items-center justify-between pb-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary/60">
+            Calendar
+          </p>
+          <h2 className="text-2xl font-semibold text-primary">
+            Upcoming Events
+          </h2>
+        </div>
+      </div>
+      <div className="space-y-3">
         {upcomingEvents.length > 0 ? (
           upcomingEvents.map((event) => (
             <EventCard key={`${event.start}-${event.title}`} event={event} />
           ))
         ) : (
-          <Alert className="flex flex-col sm:flex-row items-start sm:items-center mb-5 p-2 border border-gray-300 rounded-md bg-secondary-light text-secondary-dark max-w-full lg:max-w-md mx-auto">
-            <AlertTitle className="text-base sm:text-lg font-semibold">
+          <Alert className="flex flex-col sm:flex-row items-start sm:items-center rounded-2xl border border-secondary/30 bg-secondary-light/60 px-4 py-3 text-secondary-dark">
+            <AlertTitle className="text-sm font-semibold">
               No Upcoming Events
             </AlertTitle>
           </Alert>

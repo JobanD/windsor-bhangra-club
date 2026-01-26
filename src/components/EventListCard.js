@@ -3,14 +3,21 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 
 const EventCard = ({ event }) => {
   return (
-    <Alert className="flex flex-col sm:flex-row items-start sm:items-center mb-5 p-2 border border-gray-300 rounded-md bg-primary text-white max-w-full lg:max-w-md mx-auto">
-      <div className="font-bold text-lg sm:text-xl mr-0 sm:mr-3 whitespace-nowrap">
-        {new Date(event.start).toLocaleDateString()}
+    <Alert className="group flex flex-col gap-2 rounded-2xl border border-primary/10 bg-white/80 px-4 py-3 text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/60">
+        {new Date(event.start).toLocaleDateString(undefined, {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })}
       </div>
-      <div className="flex-grow">
-        <AlertTitle className="text-base sm:text-lg font-semibold">
+      <div className="flex items-center justify-between gap-3">
+        <AlertTitle className="text-base font-semibold text-primary">
           {event.title}
         </AlertTitle>
+        <span className="hidden text-xs font-semibold text-secondary-dark group-hover:inline">
+          Details →
+        </span>
       </div>
     </Alert>
   );

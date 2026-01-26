@@ -11,60 +11,74 @@ import {
 
 const HeroSection = () => {
   return (
-    <div
-      className="relative flex flex-col justify-center items-center h-full pb-16 md:h-screen md:pb-0 text-black"
-      style={{ backgroundColor: "hsl(40, 36%, 90%)" }}
-    >
-      <div className="relative z-10 text-center px-4 m-2">
-        <Image
-          src={logo}
-          alt="Logo"
-          width={300}
-          height={300}
-          className="mx-auto mb-8"
-          placeholder="blur"
-        />
-        <h1 className="text-6xl font-bold text-primary mt-[-2rem] sm:mt-0 lg:text-8xl">
-          Windsor <br />
-          Bhangra <br />
-          Club
-        </h1>
-        <h2 className="text-2xl text-primary-dark mt-4">
-          Welcome, please explore the many things IPCHAS offers.
-        </h2>
-        <div className="mt-8 flex justify-center space-x-4">
-          <Link
-            href="/about"
-            className="bg-secondary text-secondary-foreground py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
-          >
-            Learn More
-          </Link>
-          <Link
-            href="/events"
-            className="bg-secondary text-secondary-foreground py-2 px-6 rounded font-bold hover:bg-secondary-dark transition"
-          >
-            Events
-          </Link>
+    <section className="relative overflow-hidden">
+      <div className="absolute -top-24 right-0 h-72 w-72 rounded-full bg-secondary/30 blur-3xl" />
+      <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+      <div className="container mx-auto grid items-center gap-12 px-6 py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:py-24">
+        <div className="relative z-10 text-left">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+            Windsor, Ontario
+          </div>
+          <div className="mt-8 flex items-center gap-4">
+            <Image
+              src={logo}
+              alt="Windsor Bhangra Club logo"
+              width={120}
+              height={120}
+              className="rounded-full border border-white/70 bg-white/70 p-3 shadow-lg"
+              placeholder="blur"
+            />
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-primary/70">
+                IPCHAS presents
+              </p>
+              <h1 className="text-5xl font-bold text-primary sm:text-6xl lg:text-7xl">
+                Windsor <br />
+                Bhangra <br />
+                Club
+              </h1>
+            </div>
+          </div>
+          <p className="mt-6 max-w-xl text-lg text-primary/80">
+            Welcome, please explore the many things IPCHAS offers. Classes,
+            events, and community programs that celebrate Punjabi and Sikhi
+            culture.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-secondary-foreground shadow-lg shadow-secondary/30 transition hover:bg-secondary-dark"
+            >
+              Learn More
+            </Link>
+            <Link
+              href="/events"
+              className="inline-flex items-center justify-center rounded-full border border-primary/30 px-6 py-3 text-sm font-semibold text-primary transition hover:border-primary hover:bg-primary/10"
+            >
+              View Events
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative z-10">
+          <div className="hidden md:block rounded-3xl border border-white/70 bg-white/80 p-6 shadow-2xl backdrop-blur">
+            <EventList />
+          </div>
+          <div className="block md:hidden">
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="w-full rounded-full bg-secondary px-5 py-3 text-sm font-semibold text-secondary-foreground shadow-lg shadow-secondary/30 transition hover:bg-secondary-dark">
+                  Show Events
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="bg-white/95 p-4 rounded-2xl shadow-xl w-80">
+                <EventList />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
       </div>
-      {/* Popover for mobile screens */}
-      <div className="block md:hidden absolute top-2 right-2 z-20">
-        <Popover>
-          <PopoverTrigger asChild>
-            <button className="bg-secondary text-secondary-foreground p-2 m-2 rounded-md hover:bg-secondary-dark transition">
-              Show Events
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="bg-white p-4 rounded-lg shadow-lg w-80">
-            <EventList />
-          </PopoverContent>
-        </Popover>
-      </div>
-      {/* Event list for larger screens */}
-      <div className="hidden md:block absolute top-0 right-0 w-full lg:w-1/3 p-4 z-10">
-        <EventList />
-      </div>
-    </div>
+    </section>
   );
 };
 

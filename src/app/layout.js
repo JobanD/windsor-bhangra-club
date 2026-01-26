@@ -46,10 +46,12 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <title>IPCHAS - Windsor Bhangra Club</title>
       </head>
-      <body className={font.className}>
+      <body className={`${font.className} min-h-screen`}>
         <ToastProvider>
           <Navbar />
-          <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+          <main className="relative">
+            <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+          </main>
           <Toaster />
           <Footer />
         </ToastProvider>

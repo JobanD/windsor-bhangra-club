@@ -46,30 +46,32 @@ function EventModal({ isOpen, onClose, eventDetails }) {
   });
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/40 px-4 py-10 backdrop-blur">
       <div
         ref={modalRef}
-        className="bg-white p-5 rounded-lg shadow-lg max-w-sm mx-auto text-center"
+        className="w-full max-w-md rounded-3xl border border-white/60 bg-white/95 p-6 text-left shadow-2xl"
       >
-        <h2 className="text-xl font-semibold text-primary mb-2">
-          {formattedDate} - {eventDetails.title}
+        <p className="text-xs uppercase tracking-[0.3em] text-primary/60">
+          Event Details
+        </p>
+        <h2 className="mt-3 text-2xl font-semibold text-primary">
+          {eventDetails.title}
         </h2>
+        <p className="mt-2 text-sm text-primary/70">{formattedDate}</p>
 
-        <div className="bg-gray-100 p-3 rounded mb-4">
-          <p className="text-gray-800">
+        <div className="mt-4 rounded-2xl border border-primary/10 bg-primary/5 p-4">
+          <p className="text-sm font-semibold text-primary">
             {formattedStartTime} - {formattedEndTime}
           </p>
         </div>
 
-        <div className="bg-gray-100 p-3 rounded">
-          <p className="text-gray-800">
-            {eventDetails.extendedProps.description}
-          </p>
+        <div className="mt-4 rounded-2xl border border-primary/10 bg-white p-4 text-sm text-primary/80">
+          {eventDetails.extendedProps.description}
         </div>
 
         <button
           onClick={onClose}
-          className="mt-4 bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark"
+          className="mt-6 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-primary-dark"
         >
           Close
         </button>

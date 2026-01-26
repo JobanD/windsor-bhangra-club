@@ -53,7 +53,7 @@ const richTextOptions = {
           href={uri}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 underline"
+          className="text-primary underline underline-offset-4"
         >
           {children}
         </a>
@@ -120,31 +120,39 @@ export default async function NewsPage() {
   );
 
   return (
-    <div className="container my-2 p-4">
-      <header className="text-center py-10">
-        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light rounded-lg shadow-md mx-5 p-8">
-          <h1 className="text-5xl font-bold mb-4">Current Events</h1>
-          <p className="text-xl">
+    <div className="mx-auto max-w-6xl px-6 pb-16">
+      <header className="py-10 text-center">
+        <div className="rounded-3xl border border-white/70 bg-white/85 px-6 py-10 shadow-xl backdrop-blur">
+          <p className="text-sm uppercase tracking-[0.3em] text-primary/60">
+            News
+          </p>
+          <h1 className="mt-4 text-4xl font-bold text-primary sm:text-5xl">
+            Current Events
+          </h1>
+          <p className="mt-4 text-base text-primary/80 sm:text-lg">
             Keep up to date with the latest happenings with IPCHAS!
           </p>
         </div>
       </header>
-      <section className="space-y-10 px-1 md:px-4">
+      <section className="space-y-10">
         {posts.map((post, index) => (
           <Card
             key={index}
-            className="flex flex-col mb-10 p-2 shadow-lg rounded-lg overflow-hidden bg-white transition-transform transform text-center"
+            className="flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/90 p-4 text-left shadow-xl backdrop-blur"
           >
             <CardContent className="w-full">
-              <CardHeader>
-                <CardTitle className="text-4xl font-bold mb-2">
+              <CardHeader className="space-y-3 p-0">
+                <CardTitle className="text-3xl font-semibold text-primary">
                   {post.title}
                 </CardTitle>
-                <p className="text-gray-600 mb-4">
+                <p className="text-sm text-primary/60">
                   {new Date(post.date).toLocaleDateString()}
                 </p>
                 {/* Render Rich Text description with hyperlinks */}
-                <CardDescription as="div">
+                <CardDescription
+                  as="div"
+                  className="prose prose-sm max-w-none text-primary/80 sm:prose-base"
+                >
                   {documentToReactComponents(post.description, richTextOptions)}
                 </CardDescription>
               </CardHeader>

@@ -64,25 +64,28 @@ export default async function AboutPage() {
   );
 
   return (
-    <div className="gap-5">
-      <div className="text-center py-5 px-1">
-        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light text-center rounded-lg shadow-md mx-5 p-5">
-          <h1 className="text-5xl font-bold mb-4">
+    <div className="space-y-12 pb-16">
+      <div className="text-center py-10">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-white/70 bg-white/80 px-6 py-10 shadow-xl backdrop-blur">
+          <p className="text-sm uppercase tracking-[0.3em] text-primary/60">
+            About the club
+          </p>
+          <h1 className="mt-4 text-4xl font-bold text-primary sm:text-5xl">
             {aboutData.items[0].fields.aboutTitle}
           </h1>
-          <div className="text-xl">
+          <div className="mt-4 text-base text-primary/80 sm:text-lg">
             {aboutData.items[0].fields.aboutDescription}
           </div>
         </div>
       </div>
-      <section className="space-y-10 px-10">
+      <section className="mx-auto max-w-6xl space-y-10 px-6">
         {sections.map((section, index) => (
           <Card
             key={index}
-            className={`flex flex-col lg:flex-row items-center lg:items-start mb-10 shadow-lg rounded-lg overflow-hidden ${
+            className={`flex flex-col overflow-hidden rounded-3xl border border-white/60 shadow-xl lg:flex-row ${
               index % 2 === 0
-                ? "bg-primary-light text-white"
-                : "bg-secondary-light text-primary-dark"
+                ? "bg-primary text-white"
+                : "bg-white/90 text-primary"
             }`}
           >
             {index % 2 === 0 && section.imageUrl && (
@@ -92,16 +95,20 @@ export default async function AboutPage() {
                   alt={section.aboutSectionTitle}
                   width={400}
                   height={300}
-                  className="object-cover w-full h-full p-8"
+                  className="h-full w-full object-cover"
                 />
               </div>
             )}
-            <CardContent className="flex flex-col justify-center p-6 lg:w-2/3">
-              <CardHeader>
-                <CardTitle className="text-4xl font-bold mb-2">
+            <CardContent className="flex flex-col justify-center p-8 lg:w-2/3">
+              <CardHeader className="space-y-3 p-0">
+                <CardTitle className="text-3xl font-semibold sm:text-4xl">
                   {section.aboutSectionTitle}
                 </CardTitle>
-                <div className="text-lg">
+                <div
+                  className={`text-base leading-relaxed ${
+                    index % 2 === 0 ? "text-white/80" : "text-primary/70"
+                  }`}
+                >
                   {documentToReactComponents(section.aboutSectionDescription)}
                 </div>
               </CardHeader>
@@ -113,22 +120,22 @@ export default async function AboutPage() {
                   alt={section.aboutSectionTitle}
                   width={400}
                   height={300}
-                  className="object-cover w-full h-full p-8"
+                  className="h-full w-full object-cover"
                 />
               </div>
             )}
           </Card>
         ))}
       </section>
-      <section className="my-10 text-center">
-        <div className="bg-primary text-white rounded-lg shadow-md mx-5 p-5">
-          <h2 className="text-4xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-lg mb-6">
+      <section className="text-center">
+        <div className="mx-auto max-w-4xl rounded-3xl bg-primary px-6 py-10 text-white shadow-2xl">
+          <h2 className="text-3xl font-semibold sm:text-4xl">Get in Touch</h2>
+          <p className="mt-4 text-base text-white/80 sm:text-lg">
             Interested in learning more about our work or joining our team? We
             would love to hear from you!
           </p>
           <Link
-            className="px-8 py-3 bg-secondary-light text-primary-dark rounded-md font-semibold hover:bg-secondary-dark"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-secondary px-8 py-3 text-sm font-semibold text-secondary-foreground shadow-lg shadow-secondary/30 transition hover:bg-secondary-dark"
             href="/contact"
           >
             Contact Us
