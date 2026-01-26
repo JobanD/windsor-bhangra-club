@@ -57,7 +57,15 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at top, rgba(237, 168, 14, 0.18), transparent 55%),
+      radial-gradient(circle at 20% 20%, rgba(35, 79, 30, 0.15), transparent 45%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 244, 243, 0.9));
+    background-attachment: fixed;
   }
 }

@@ -149,9 +149,12 @@ const RegistrationForm = ({ children }) => {
     }
   }, [open, toast, message]);
 
+  const inputClassName =
+    "w-full rounded-2xl border border-primary/10 bg-white px-4 py-3 text-sm text-primary shadow-sm focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/30";
+
   return (
     <form onSubmit={handleSendEmail} noValidate className="mt-3 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
+      <h2 className="text-2xl font-semibold text-primary mb-4">Register</h2>
       <div className="flex flex-col space-y-4">
         <input
           type="text"
@@ -160,7 +163,7 @@ const RegistrationForm = ({ children }) => {
           value={formData.name}
           onChange={handleInputChange}
           required
-          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+          className={inputClassName}
         />
         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
         <input
@@ -170,7 +173,7 @@ const RegistrationForm = ({ children }) => {
           value={formData.email}
           onChange={handleInputChange}
           required
-          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+          className={inputClassName}
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         <input
@@ -179,14 +182,14 @@ const RegistrationForm = ({ children }) => {
           placeholder="Optional Phone Number"
           value={formData.phone}
           onChange={handleInputChange}
-          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+          className={inputClassName}
         />
         {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
         <Select
           onValueChange={(value) => handleSelectChange("registerFor", value)}
           required
         >
-          <SelectTrigger className="p-2 border border-gray-300 rounded-md w-full bg-white">
+          <SelectTrigger className={inputClassName}>
             <SelectValue placeholder="Register For" />
           </SelectTrigger>
           <SelectContent>
@@ -205,14 +208,14 @@ const RegistrationForm = ({ children }) => {
           value={formData.age}
           onChange={handleInputChange}
           required
-          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+          className={inputClassName}
         />
         {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
         <Select
           onValueChange={(value) => handleSelectChange("sex", value)}
           required
         >
-          <SelectTrigger className="p-2 border border-gray-300 rounded-md w-full bg-white">
+          <SelectTrigger className={inputClassName}>
             <SelectValue placeholder="Sex" />
           </SelectTrigger>
           <SelectContent>
@@ -228,7 +231,7 @@ const RegistrationForm = ({ children }) => {
           value={formData.notes}
           onChange={handleInputChange}
           rows="4"
-          className="p-2 border border-gray-300 rounded-md w-full bg-white"
+          className={`${inputClassName} resize-none`}
         />
         <input
           type="text"
@@ -240,7 +243,7 @@ const RegistrationForm = ({ children }) => {
         <button
           type="submit"
           disabled={pending}
-          className="w-full py-2 px-4 bg-primary text-white font-bold rounded-md hover:bg-secondary-dark transition"
+          className="w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:bg-primary-dark"
         >
           Register
         </button>

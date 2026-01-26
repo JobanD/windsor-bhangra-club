@@ -49,19 +49,19 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="bg-primary text-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white/85 text-primary shadow-sm backdrop-blur border-b border-white/40">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
             <Image
               src={logo}
               alt="Logo"
-              width={110}
-              height={110}
+              width={88}
+              height={88}
               placeholder="blur"
             />
           </Link>
-          <Link href="/" className="ml-4 text-2xl font-bold">
+          <Link href="/" className="ml-4 text-xl font-semibold tracking-wide">
             IPCHAS
           </Link>
         </div>
@@ -73,9 +73,9 @@ const Navbar = () => {
                   <NavigationMenuLink
                     as={Link}
                     href={item.href}
-                    className={`hover:text-secondary transition-colors ${
+                    className={`rounded-full px-3 py-2 text-sm font-medium transition-colors hover:text-primary hover:bg-primary/10 ${
                       pathname === item.href
-                        ? "border-b-2 border-secondary"
+                        ? "text-primary bg-primary/15"
                         : ""
                     }`}
                   >
@@ -87,40 +87,39 @@ const Navbar = () => {
           </NavigationMenu>
         </div>
         <button
-          className="lg:hidden focus:outline-none"
+          className="lg:hidden rounded-full border border-primary/20 p-2 text-primary shadow-sm hover:bg-primary/10 focus:outline-none"
           onClick={handleMobileMenuToggle}
         >
           {mobileMenuOpen ? (
-            <X className="h-8 w-8 text-white" />
+            <X className="h-7 w-7 text-primary" />
           ) : (
-            <Menu className="h-8 w-8 text-white" />
+            <Menu className="h-7 w-7 text-primary" />
           )}
         </button>
       </div>
       <div
-        className={`fixed inset-0 bg-primary text-white z-50 flex flex-col items-center justify-center space-y-6 transition-transform transform ${
+        className={`fixed inset-0 bg-primary text-white z-50 flex flex-col items-center justify-center space-y-6 transition-transform duration-300 ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ transitionDuration: "0.2s" }}
       >
         <button
-          className="absolute top-4 right-4 focus:outline-none"
+          className="absolute top-4 right-4 rounded-full border border-white/20 p-2 focus:outline-none"
           onClick={handleMobileMenuToggle}
         >
-          <X className="h-8 w-8 my-8 text-white" />
+          <X className="h-7 w-7 text-white" />
         </button>
         {menuItems.map((item, index) => (
           <div key={item.href} className="flex flex-col items-center w-full">
             <Link
               href={item.href}
-              className="flex items-center text-2xl hover:text-secondary"
+              className="flex items-center text-2xl font-semibold tracking-wide hover:text-secondary"
               onClick={handleMobileMenuToggle}
             >
               <item.icon className="h-6 w-6 mr-2" />
               {item.label}
             </Link>
             {index < menuItems.length - 1 && (
-              <Separator className="w-3/4 my-4 bg-gray-200" />
+              <Separator className="w-3/4 my-4 bg-white/30" />
             )}
           </div>
         ))}

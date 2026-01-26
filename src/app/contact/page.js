@@ -37,27 +37,36 @@ export default async function ContactPage() {
   const data = await getContactData();
 
   return (
-    <div className="gap-5">
+    <div className="space-y-10 pb-16">
       {/* Hero Section */}
-      <div className="text-center pt-5 px-1">
-        <div className="bg-gradient-to-r from-primary-dark to-primary text-secondary-light text-center rounded-lg shadow-md mx-5 p-5">
-          <h1 className="text-5xl font-bold mb-4">{data.contactTitle}</h1>
-          <p className="text-xl">{data.contactDescription}</p>
+      <div className="text-center pt-10">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-white/70 bg-white/85 px-6 py-10 shadow-xl backdrop-blur">
+          <p className="text-sm uppercase tracking-[0.3em] text-primary/60">
+            Contact us
+          </p>
+          <h1 className="mt-4 text-4xl font-bold text-primary sm:text-5xl">
+            {data.contactTitle}
+          </h1>
+          <p className="mt-4 text-base text-primary/80 sm:text-lg">
+            {data.contactDescription}
+          </p>
         </div>
       </div>
 
       {/* Contact Information and Form */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 px-3 py-5">
-        <div className="bg-secondary text-primary-dark p-6 rounded-lg shadow-md">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2">
+        <div className="rounded-3xl border border-white/70 bg-white/85 p-8 shadow-lg backdrop-blur">
           {/* Contact Information */}
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className="text-2xl font-semibold text-primary mb-4">
             {data.contactUsSection1Title}
           </h2>
-          <p className="mb-2">{data.contactInfo.address}</p>
-          <p className="mb-2">Phone: {data.contactInfo.phone}</p>
-          <p className="mb-2">Email: {data.contactInfo.email}</p>
+          <div className="space-y-2 text-sm text-primary/70">
+            <p>{data.contactInfo.address}</p>
+            <p>Phone: {data.contactInfo.phone}</p>
+            <p>Email: {data.contactInfo.email}</p>
+          </div>
           {/* Social Links */}
-          <h3 className="text-xl font-bold mt-5 mb-2">
+          <h3 className="text-lg font-semibold text-primary mt-6 mb-3">
             {data.socialLinks.content[0].value}
           </h3>
           <div className="flex space-x-4">
@@ -65,27 +74,27 @@ export default async function ContactPage() {
               href="https://www.instagram.com/windsorbhangraclub/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex"
+              className="inline-flex rounded-full border border-primary/10 bg-primary/5 p-3 transition hover:bg-primary/10"
             >
               <Image
                 src={InstagramLogo}
                 alt="Instagram"
-                width={50}
-                height={50}
+                width={24}
+                height={24}
               />
             </a>
             <a
               href="https://www.facebook.com/windsorbhangraclub/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex"
+              className="inline-flex rounded-full border border-primary/10 bg-primary/5 p-3 transition hover:bg-primary/10"
             >
-              <Image src={FacebookLogo} alt="Facebook" width={50} height={50} />
+              <Image src={FacebookLogo} alt="Facebook" width={24} height={24} />
             </a>
           </div>
         </div>
 
-        <div className="bg-secondary text-primary-dark p-6 rounded-lg shadow-md">
+        <div className="rounded-3xl border border-white/70 bg-white/90 p-8 shadow-lg backdrop-blur">
           {/* Contact Form */}
           <ContactForm />
         </div>

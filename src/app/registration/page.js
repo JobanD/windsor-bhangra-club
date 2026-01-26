@@ -34,9 +34,9 @@ export const metadata = {
 
 const Page = () => {
   return (
-    <div>
+    <div className="pb-16">
       {/* Hero Section */}
-      <div className="relative h-96 bg-primary flex items-center justify-center">
+      <div className="relative h-[420px] overflow-hidden rounded-b-[48px] bg-primary/90">
         <Image
           src={banner}
           alt="Banner Image"
@@ -46,24 +46,30 @@ const Page = () => {
             height: "100%",
           }}
           quality={100}
-          className="absolute z-0"
+          className="absolute inset-0 z-0 object-cover"
           placeholder="blur"
         />
-        <div className="absolute inset-0 bg-black opacity-50 z-0"></div>{" "}
-        {/* Semi-transparent overlay */}
-        <div className="relative z-10 text-center text-white">
-          <h1 className="text-6xl font-bold">Welcome to Our Organization</h1>
-          <p className="text-2xl mt-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-0"></div>
+        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-6 text-center text-white">
+          <p className="text-sm uppercase tracking-[0.3em] text-white/70">
+            Registration
+          </p>
+          <h1 className="mt-4 text-4xl font-semibold sm:text-5xl lg:text-6xl">
+            Welcome to Our Organization
+          </h1>
+          <p className="mt-4 text-base text-white/80 sm:text-lg">
             Join us and be a part of something great.
           </p>
         </div>
       </div>
 
       {/* Brief Description Card */}
-      <div className="container mx-auto mt-2 p-4">
-        <div className="bg-secondary-light p-6 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold mb-4 text-center">Get Involved</h2>
-          <p className="text-lg text-center">
+      <div className="mx-auto -mt-10 max-w-5xl px-6">
+        <div className="rounded-3xl border border-white/70 bg-white/90 p-8 text-center shadow-xl backdrop-blur">
+          <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
+            Get Involved
+          </h2>
+          <p className="mt-4 text-base text-primary/70 sm:text-lg">
             Whether you&apos;re looking to join our team, register for an event,
             or donate, we have opportunities for everyone. Explore the tabs
             below to get started.
@@ -72,28 +78,30 @@ const Page = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className="container mx-auto my-8 p-4">
-        <h1 className="text-4xl font-bold mb-6 text-center">Registration</h1>
+      <div className="mx-auto my-10 max-w-6xl px-6">
+        <h1 className="text-3xl font-semibold text-primary mb-6 text-center sm:text-4xl">
+          Registration
+        </h1>
         <Tabs defaultValue="joinTeam" className="w-full">
-          <TabsList className="flex justify-around p-2 rounded-t-lg">
+          <TabsList className="flex flex-col gap-2 rounded-3xl bg-white/80 p-2 shadow-lg backdrop-blur sm:flex-row">
             <TabsTrigger
               value="joinTeam"
-              className="flex-1 m-2 px-4 py-2 text-center text-lg font-semibold border-2 border-primary-dark rounded-lg transition-all duration-200"
+              className="flex-1 rounded-full border border-primary/20 px-4 py-2 text-center text-sm font-semibold text-primary transition-all duration-200 data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Join Team
             </TabsTrigger>
             <TabsTrigger
               value="register"
-              className="flex-1 m-2 px-4 py-2 text-center text-lg font-semibold border-2 border-primary-dark rounded-lg transition-all duration-200"
+              className="flex-1 rounded-full border border-primary/20 px-4 py-2 text-center text-sm font-semibold text-primary transition-all duration-200 data-[state=active]:bg-primary data-[state=active]:text-white"
             >
               Registration
             </TabsTrigger>
           </TabsList>
-          <div className="bg-secondary text-primary-dark rounded-b-lg shadow-md">
-            <TabsContent value="joinTeam" className="mt-4 p-6">
+          <div className="mt-6 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-xl backdrop-blur">
+            <TabsContent value="joinTeam" className="mt-2">
               <JoinTeamForm />
             </TabsContent>
-            <TabsContent value="register" className="mt-4 p-6">
+            <TabsContent value="register" className="mt-2">
               <RegistrationForm />
             </TabsContent>
           </div>
