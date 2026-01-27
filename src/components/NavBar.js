@@ -98,31 +98,33 @@ const Navbar = () => {
         </button>
       </div>
       <div
-        className={`fixed inset-0 bg-primary text-white z-50 flex flex-col items-center justify-center space-y-6 transition-transform duration-300 ${
+        className={`fixed inset-0 bg-primary text-white z-50 flex flex-col items-center transition-transform duration-300 overflow-y-auto ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <button
-          className="absolute top-4 right-4 rounded-full border border-white/20 p-2 focus:outline-none"
+          className="absolute top-8 right-6 rounded-full border border-white/20 p-2 focus:outline-none z-10"
           onClick={handleMobileMenuToggle}
         >
           <X className="h-7 w-7 text-white" />
         </button>
-        {menuItems.map((item, index) => (
-          <div key={item.href} className="flex flex-col items-center w-full">
-            <Link
-              href={item.href}
-              className="flex items-center text-2xl font-semibold tracking-wide hover:text-secondary"
-              onClick={handleMobileMenuToggle}
-            >
-              <item.icon className="h-6 w-6 mr-2" />
-              {item.label}
-            </Link>
-            {index < menuItems.length - 1 && (
-              <Separator className="w-3/4 my-4 bg-white/30" />
-            )}
-          </div>
-        ))}
+        <div className="flex flex-col items-center space-y-6 my-auto py-24">
+          {menuItems.map((item, index) => (
+            <div key={item.href} className="flex flex-col items-center w-full">
+              <Link
+                href={item.href}
+                className="flex items-center text-2xl font-semibold tracking-wide hover:text-secondary"
+                onClick={handleMobileMenuToggle}
+              >
+                <item.icon className="h-6 w-6 mr-2" />
+                {item.label}
+              </Link>
+              {index < menuItems.length - 1 && (
+                <Separator className="w-3/4 my-4 bg-white/30" />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </header>
   );
