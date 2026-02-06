@@ -62,7 +62,7 @@ const HeroSection = () => {
 
         <div className="relative z-10">
           <div className="hidden md:block rounded-3xl border border-white/70 bg-white/80 p-6 shadow-2xl backdrop-blur">
-            <EventList />
+            <EventList linkToCalendar />
           </div>
           <div className="block md:hidden">
             <Popover>
@@ -72,7 +72,7 @@ const HeroSection = () => {
                 </button>
               </PopoverTrigger>
               <PopoverContent className="bg-white/95 p-4 rounded-2xl shadow-xl w-80">
-                <EventList />
+                <EventList linkToCalendar />
               </PopoverContent>
             </Popover>
           </div>

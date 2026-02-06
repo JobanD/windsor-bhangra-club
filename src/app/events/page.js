@@ -1,7 +1,6 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import { getEventData } from "@/contentful/data";
-import EventList from "@/components/EventList";
+import EventListInteractive from "@/components/EventListInteractive";
 import Calendar from "@/components/Calendar";
 
 export const metadata = {
@@ -30,8 +29,9 @@ export const metadata = {
   },
 };
 
-export default async function Events() {
+export default async function Events({ searchParams }) {
   const events = await getEventData();
+  const initialDate = searchParams?.date ?? null;
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-16">
@@ -49,13 +49,22 @@ export default async function Events() {
         </div>
       </header>
       <div className="my-10 rounded-3xl border border-white/70 bg-white/85 p-6 shadow-lg backdrop-blur">
-        <EventList />
+        <EventListInteractive events={events} />
       </div>
       <div className="my-8 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-lg backdrop-blur">
-        <h2 className="text-2xl font-semibold text-primary mb-4">
-          Event Calendar
-        </h2>
-        <Calendar events={events} />
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <h2 className="text-2xl font-semibold text-primary">
+            Event Calendar
+          </h2>
+          <a
+            href="/yearlyCalendar.JPG"
+            download
+            className="inline-flex items-center justify-center rounded-full border border-primary/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/10"
+          >
+            Download Yearly Calendar
+          </a>
+        </div>
+        <Calendar events={events} initialDate={initialDate} />
       </div>
     </div>
   );

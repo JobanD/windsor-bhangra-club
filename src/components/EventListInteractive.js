@@ -1,11 +1,13 @@
+"use client";
+
+import React from "react";
 import EventCard from "./EventListCard";
-import { getEventData } from "@/contentful/data";
+import EventModal from "./EventModal";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 
-export default async function EventList({ linkToCalendar = false }) {
-  const events = await getEventData();
+const EventListInteractive = ({ events }) => {
+  const [selectedEvent, setSelectedEvent] = React.useState(null);
 
-  // Filter events to only include those occurring from today's date onwards
   const today = new Date();
   const upcomingEvents = events.filter(
     (event) => new Date(event.start) >= today
@@ -25,29 +27,13 @@ export default async function EventList({ linkToCalendar = false }) {
       </div>
       <div className="space-y-3">
         {upcomingEvents.length > 0 ? (
-          upcomingEvents.map((event) => {
-            const eventStart = event.start ? new Date(event.start) : null;
-            const eventDate = eventStart
-              ? `${eventStart.getFullYear()}-${String(
-                  eventStart.getMonth() + 1
-                ).padStart(2, "0")}-${String(eventStart.getDate()).padStart(
-                  2,
-                  "0"
-                )}`
-              : null;
-            const href =
-              linkToCalendar && eventDate
-                ? `/events?date=${eventDate}`
-                : null;
-
-            return (
-              <EventCard
-                key={`${event.start}-${event.title}`}
-                event={event}
-                href={href}
-              />
-            );
-          })
+          upcomingEvents.map((event) => (
+            <EventCard
+              key={`${event.start}-${event.title}`}
+              event={event}
+              onClick={() => setSelectedEvent(event)}
+            />
+          ))
         ) : (
           <Alert className="flex flex-col sm:flex-row items-start sm:items-center rounded-2xl border border-secondary/30 bg-secondary-light/60 px-4 py-3 text-secondary-dark">
             <AlertTitle className="text-sm font-semibold">
@@ -56,6 +42,13 @@ export default async function EventList({ linkToCalendar = false }) {
           </Alert>
         )}
       </div>
+      <EventModal
+        isOpen={Boolean(selectedEvent)}
+        onClose={() => setSelectedEvent(null)}
+        eventDetails={selectedEvent}
+      />
     </div>
   );
-}
+};
+
+export default EventListInteractive;

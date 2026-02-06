@@ -7,7 +7,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 // components
 import EventModal from "./EventModal";
 
-const Calendar = ({ events }) => {
+const Calendar = ({ events, initialDate }) => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
 
@@ -30,11 +30,17 @@ const Calendar = ({ events }) => {
     );
   };
 
+  const parsedInitialDate =
+    initialDate && !Number.isNaN(new Date(initialDate).getTime())
+      ? initialDate
+      : undefined;
+
   return (
     <>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridWeek]}
         initialView="dayGridMonth"
+        initialDate={parsedInitialDate}
         events={events}
         eventClick={handleEventClick}
         // height={getCalendarHeight()}

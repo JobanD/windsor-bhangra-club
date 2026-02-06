@@ -1,3 +1,69 @@
+const RECURRENCE_WINDOW_MONTHS = 12;
+
+const normalizeRecurrence = (value) => {
+  if (!value) return null;
+  const normalized = String(value).trim().toLowerCase();
+  if (normalized === "weekly") return "weekly";
+  if (normalized === "biweekly" || normalized === "bi-weekly") return "biweekly";
+  if (normalized === "monthly") return "monthly";
+  return null;
+};
+
+const addDays = (date, days) => {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+};
+
+const addMonths = (date, months) => {
+  const next = new Date(date);
+  next.setMonth(next.getMonth() + months);
+  return next;
+};
+
+const expandRecurringEvent = (event) => {
+  if (!event.start) return [];
+
+  const recurrence = normalizeRecurrence(event.recurrence);
+  if (!recurrence) return [event];
+
+  const durationMs =
+    event.end instanceof Date
+      ? event.end.getTime() - event.start.getTime()
+      : event.end
+      ? new Date(event.end).getTime() - new Date(event.start).getTime()
+      : null;
+
+  const fallbackMaxDate = addMonths(event.start, RECURRENCE_WINDOW_MONTHS);
+  const maxDate =
+    event.recurrenceEndDate instanceof Date
+      ? event.recurrenceEndDate
+      : event.recurrenceEndDate
+      ? new Date(event.recurrenceEndDate)
+      : fallbackMaxDate;
+  const occurrences = [];
+  let currentStart = new Date(event.start);
+
+  while (currentStart <= maxDate) {
+    const occurrence = {
+      ...event,
+      start: new Date(currentStart),
+      end: durationMs ? new Date(currentStart.getTime() + durationMs) : event.end,
+    };
+    occurrences.push(occurrence);
+
+    if (recurrence === "monthly") {
+      currentStart = addMonths(currentStart, 1);
+    } else if (recurrence === "biweekly") {
+      currentStart = addDays(currentStart, 14);
+    } else {
+      currentStart = addDays(currentStart, 7);
+    }
+  }
+
+  return occurrences;
+};
+
 export async function getEventData() {
   try {
     const response = await fetch(
@@ -12,12 +78,18 @@ export async function getEventData() {
     }
 
     const data = await response.json();
-    return data.items.map((event) => ({
+    const events = data.items.map((event) => ({
       title: event.fields.eventTitle,
-      start: event.fields.startDate,
-      end: event.fields.endDate,
+      start: event.fields.startDate ? new Date(event.fields.startDate) : null,
+      end: event.fields.endDate ? new Date(event.fields.endDate) : null,
       description: event.fields.description,
+      recurrence: event.fields.recurrance ?? event.fields.recurrence ?? null,
+      recurrenceEndDate: event.fields.recurrenceEndDate ?? null,
     }));
+
+    return events
+      .flatMap(expandRecurringEvent)
+      .sort((a, b) => new Date(a.start) - new Date(b.start));
   } catch (error) {
     console.error("Error fetching events:", error);
     return { error: error.message };
