@@ -45,6 +45,9 @@ const Calendar = ({ events, initialDate }) => {
         eventClick={handleEventClick}
         // height={getCalendarHeight()}
         // height={auto}
+        height="auto"
+        contentHeight="auto"
+        expandRows
         aspectRatio={1.35} // Adjust as needed for your design
         // windowResize={function (view) {
         //   this.setOption("height", getCalendarHeight());
