@@ -1,15 +1,21 @@
+import Link from "next/link";
 import EventCard from "./EventListCard";
 import { getEventData } from "@/contentful/data";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import { getUpcomingEventGroups } from "@/lib/events";
 
 export default async function EventList({ linkToCalendar = false }) {
   const events = await getEventData();
-
-  // Filter events to only include those occurring from today's date onwards
   const today = new Date();
-  const upcomingEvents = events.filter(
-    (event) => new Date(event.start) >= today
+  const { items: upcomingEvents, totalCount } = getUpcomingEventGroups(
+    events,
+    today
   );
+
+  const MOBILE_LIMIT = 3;
+  const DESKTOP_LIMIT = 5;
+  const hasMore = totalCount > MOBILE_LIMIT;
+  const displayedEvents = upcomingEvents.slice(0, DESKTOP_LIMIT);
 
   return (
     <div className="w-full">
@@ -25,7 +31,7 @@ export default async function EventList({ linkToCalendar = false }) {
       </div>
       <div className="space-y-3">
         {upcomingEvents.length > 0 ? (
-          upcomingEvents.map((event) => {
+          displayedEvents.map((event, index) => {
             const eventStart = event.start ? new Date(event.start) : null;
             const eventDate = eventStart
               ? `${eventStart.getFullYear()}-${String(
@@ -40,12 +46,26 @@ export default async function EventList({ linkToCalendar = false }) {
                 ? `/events?date=${eventDate}`
                 : null;
 
+            const countLabel =
+              event.recurrenceCount > 0
+                ? event.recurrenceCount === 1
+                  ? "1 date"
+                  : `${event.recurrenceCount} dates`
+                : null;
+            const badge = event.isRecurring
+              ? `${event.recurrenceLabel}${
+                  countLabel ? ` · ${countLabel}` : ""
+                }`
+              : null;
+            const note = event.isRecurring ? "Next date shown" : null;
+
             return (
-              <EventCard
+              <div
                 key={`${event.start}-${event.title}`}
-                event={event}
-                href={href}
-              />
+                className={index >= MOBILE_LIMIT ? "hidden sm:block" : ""}
+              >
+                <EventCard event={event} href={href} badge={badge} note={note} />
+              </div>
             );
           })
         ) : (
@@ -56,6 +76,26 @@ export default async function EventList({ linkToCalendar = false }) {
           </Alert>
         )}
       </div>
+      {hasMore ? (
+        <div className="mt-4 text-xs text-primary/60">
+          <span className="sm:hidden">
+            Showing {Math.min(MOBILE_LIMIT, totalCount)} of {totalCount} upcoming
+            events.
+          </span>
+          <span className="hidden sm:inline">
+            Showing {Math.min(DESKTOP_LIMIT, totalCount)} of {totalCount} upcoming
+            events.
+          </span>
+          {linkToCalendar ? (
+            <span className="ml-2 inline-flex items-center gap-1">
+              <Link href="/events" className="font-semibold text-primary">
+                View all events
+              </Link>
+              →
+            </span>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }
