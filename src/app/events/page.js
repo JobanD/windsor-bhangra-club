@@ -57,7 +57,7 @@ export default async function Events({ searchParams }) {
             Event Calendar
           </h2>
           <a
-            href="/yearlyCalendar.JPG"
+            href="/yearlyCalendar.jpg"
             download
             className="inline-flex items-center justify-center rounded-full border border-primary/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary transition hover:border-primary hover:bg-primary/10"
           >

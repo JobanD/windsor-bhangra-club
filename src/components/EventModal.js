@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 
 function EventModal({ isOpen, onClose, eventDetails }) {
   const modalRef = useRef();
+  const [mounted, setMounted] = useState(false);
 
   // Function to close modal if clicked outside
   const handleClickOutside = useCallback(
@@ -14,6 +16,10 @@ function EventModal({ isOpen, onClose, eventDetails }) {
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     // Attach the event listener
     document.addEventListener("mousedown", handleClickOutside);
     // Clean up the event listener
@@ -23,7 +29,7 @@ function EventModal({ isOpen, onClose, eventDetails }) {
   }, [handleClickOutside]);
 
   // Render nothing if the modal is not open or eventDetails are not available
-  if (!isOpen || !eventDetails) return null;
+  if (!isOpen || !eventDetails || !mounted) return null;
 
   // Formatting the date and hour range
   const eventStartDate = new Date(eventDetails.start);
@@ -49,8 +55,8 @@ function EventModal({ isOpen, onClose, eventDetails }) {
       })
     : null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/40 px-4 py-8 backdrop-blur">
+  const modal = (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-primary/40 px-4 py-8 backdrop-blur">
       <div
         ref={modalRef}
         className="relative w-full max-w-md max-h-[85vh] overflow-hidden rounded-3xl border border-white/60 bg-white/95 text-left shadow-2xl"
@@ -97,6 +103,8 @@ function EventModal({ isOpen, onClose, eventDetails }) {
       </div>
     </div>
   );
+
+  return createPortal(modal, document.body);
 }
 
 export default EventModal;
