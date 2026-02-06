@@ -13,6 +13,8 @@ import MediaModal from "@/components/MediaModal";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
+export const revalidate = 60;
+
 export const metadata = {
   metadataBase: new URL("https://www.windsorbhangraclub.com"),
   title: "News - IPCHAS & WBC",
@@ -78,7 +80,11 @@ const richTextOptions = {
 
 export default async function NewsPage() {
   // Fetch news posts data
-  const newsData = await fetchDataFromContentful("newspost", 10);
+  const newsData = await fetchDataFromContentful(
+    "newspost",
+    10,
+    "order=-sys.createdAt",
+  );
 
   console.log("NEWS: ", newsData);
 

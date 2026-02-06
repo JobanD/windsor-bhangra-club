@@ -69,7 +69,8 @@ export async function getPersonData() {
 export async function fetchDataFromContentful(
   contentType,
   includeLevel = 2,
-  query = null // Optional parameter to add additional filtering
+  query = null, // Optional parameter to add additional filtering
+  revalidateSeconds = 60
 ) {
   let url = `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=${contentType}&include=${includeLevel}`;
 
@@ -78,7 +79,9 @@ export async function fetchDataFromContentful(
   }
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      next: { revalidate: revalidateSeconds },
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
