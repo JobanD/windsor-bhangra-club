@@ -81,7 +81,7 @@ export default async function NewsPage() {
   const newsData = await fetchDataFromContentful(
     "newspost",
     10,
-    "order=-fields.date,-sys.publishedAt,-sys.createdAt",
+    "limit=1000",
   );
 
   if (!newsData || newsData.error) {
@@ -90,20 +90,21 @@ export default async function NewsPage() {
 
   // Process the news posts data
   const posts = await Promise.all(
-    newsData.items.map(async (post) => {
-      const imageField = post.fields.image
-        ? Array.isArray(post.fields.image)
-          ? post.fields.image
-          : [post.fields.image]
+    (newsData.items ?? []).map(async (post) => {
+      const fields = post?.fields ?? {};
+      const imageField = fields.image
+        ? Array.isArray(fields.image)
+          ? fields.image
+          : [fields.image]
         : [];
       const images = imageField.length
         ? await Promise.all(
             imageField.map(
-              async (image) => await fetchImageData(image.sys.id),
+              async (image) => await fetchImageData(image?.sys?.id),
             ),
           )
         : [];
-      const video = post.fields.video || null;
+      const video = fields.video || null;
 
       // Combine images and video into a single media array
       const media = [
@@ -111,26 +112,32 @@ export default async function NewsPage() {
           .filter(Boolean)
           .map((image) => ({ type: "image", url: image })),
         ...(video
-          ? [
+          ? video?.fields?.file?.url
+            ? [
               {
                 type: "video",
                 url: video.fields.file.url,
                 contentType: video.fields.file.contentType,
               },
             ]
+            : []
           : []),
       ];
 
       return {
-        ...post.fields,
+        ...fields,
         _publishedAt: post.sys?.publishedAt ?? post.sys?.createdAt ?? "",
         media,
       };
     }),
   );
   const sortedPosts = [...posts].sort((a, b) => {
-    const dateA = new Date(a.date ?? a._publishedAt).getTime();
-    const dateB = new Date(b.date ?? b._publishedAt).getTime();
+    const dateA = Number.isNaN(new Date(a.date).getTime())
+      ? new Date(a._publishedAt).getTime()
+      : new Date(a.date).getTime();
+    const dateB = Number.isNaN(new Date(b.date).getTime())
+      ? new Date(b._publishedAt).getTime()
+      : new Date(b.date).getTime();
     return dateB - dateA;
   });
 
@@ -161,14 +168,20 @@ export default async function NewsPage() {
                   {post.title}
                 </CardTitle>
                 <p className="text-sm text-primary/60">
-                  {new Date(post.date).toLocaleDateString()}
+                  {new Date(
+                    Number.isNaN(new Date(post.date).getTime())
+                      ? post._publishedAt
+                      : post.date,
+                  ).toLocaleDateString()}
                 </p>
                 {/* Render Rich Text description with hyperlinks */}
                 <CardDescription
                   as="div"
                   className="prose prose-sm max-w-none text-primary/80 sm:prose-base"
                 >
-                  {documentToReactComponents(post.description, richTextOptions)}
+                  {post.description
+                    ? documentToReactComponents(post.description, richTextOptions)
+                    : null}
                 </CardDescription>
               </CardHeader>
 
