@@ -4,6 +4,23 @@ import { getEventData } from "@/contentful/data";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { getUpcomingEventGroups } from "@/lib/events";
 
+const WINDSOR_TIME_ZONE = "America/Toronto";
+
+const formatDateForEventsQuery = (dateValue) => {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: WINDSOR_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const parts = formatter.formatToParts(new Date(dateValue));
+  const values = {};
+  parts.forEach(({ type, value }) => {
+    if (type !== "literal") values[type] = value;
+  });
+  return `${values.year}-${values.month}-${values.day}`;
+};
+
 export default async function EventList({ linkToCalendar = false }) {
   const events = await getEventData();
   const today = new Date();
@@ -32,14 +49,8 @@ export default async function EventList({ linkToCalendar = false }) {
       <div className="space-y-3">
         {upcomingEvents.length > 0 ? (
           displayedEvents.map((event, index) => {
-            const eventStart = event.start ? new Date(event.start) : null;
-            const eventDate = eventStart
-              ? `${eventStart.getFullYear()}-${String(
-                  eventStart.getMonth() + 1
-                ).padStart(2, "0")}-${String(eventStart.getDate()).padStart(
-                  2,
-                  "0"
-                )}`
+            const eventDate = event.start
+              ? formatDateForEventsQuery(event.start)
               : null;
             const href =
               linkToCalendar && eventDate

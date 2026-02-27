@@ -1,33 +1,31 @@
 "use client";
 import React from "react";
 import FullCalendar from "@fullcalendar/react";
-import timeGridWeek from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
 // components
 import EventModal from "./EventModal";
 
+const WINDSOR_TIME_ZONE = "America/Toronto";
+
+const formatTimeInWindsor = (dateValue) => {
+  if (!dateValue) return "";
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: WINDSOR_TIME_ZONE,
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date(dateValue));
+};
+
 const Calendar = ({ events, initialDate }) => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedEvent, setSelectedEvent] = React.useState(null);
+  const safeEvents = Array.isArray(events) ? events : [];
 
   const handleEventClick = ({ event }) => {
     setSelectedEvent(event);
     setModalOpen(true);
-  };
-
-  // Function to determine the appropriate calendar height
-  const getCalendarHeight = () => {
-    return window.innerWidth < 768 ? "auto" : "100vh"; // 'auto' for mobile, '100vh' for larger screens
-  };
-
-  const isToday = (date) => {
-    const today = new Date();
-    return (
-      date.getFullYear() === today.getFullYear() &&
-      date.getMonth() === today.getMonth() &&
-      date.getDate() === today.getDate()
-    );
   };
 
   const parsedInitialDate =
@@ -38,56 +36,39 @@ const Calendar = ({ events, initialDate }) => {
   return (
     <>
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridWeek]}
+        plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         initialDate={parsedInitialDate}
-        events={events}
+        timeZone={WINDSOR_TIME_ZONE}
+        events={safeEvents}
         eventClick={handleEventClick}
-        // height={getCalendarHeight()}
-        // height={auto}
         height="auto"
         contentHeight="auto"
         expandRows
-        aspectRatio={1.35} // Adjust as needed for your design
-        // windowResize={function (view) {
-        //   this.setOption("height", getCalendarHeight());
-        // }}
+        aspectRatio={1.35}
+        fixedWeekCount={false}
+        showNonCurrentDates={false}
+        dayMaxEventRows={3}
         headerToolbar={{
           left: "prev,next",
           center: "title",
-          right: "dayGridMonth,timeGridWeek",
+          right: "",
         }}
-        // dayCellContent={({ date, dayNumberText, view }) => {
-        //   // Apply custom styling if the cell represents today's date
-        //   if (isToday(date)) {
-        //     // Create a new element to add custom styles for highlighting
-        //     const todayElement = document.createElement("div");
-        //     todayElement.classList.add("highlight-today"); // Add your custom class here
-        //     todayElement.textContent = dayNumberText;
-        //     return { html: todayElement.outerHTML };
-        //   }
-
-        //   return { domNodes: [document.createTextNode(dayNumberText)] };
-        // }}
-        eventContent={({ event, view }) => {
-          let startTime = "";
-          if (event.start) {
-            const hours = event.start.getHours();
-            const minutes = event.start.getMinutes();
-            const ampm = hours >= 12 ? "PM" : "AM";
-            const formattedHours = hours % 12 || 12;
-            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-            startTime = `${formattedHours}:${formattedMinutes} ${ampm}:`;
-          }
+        eventContent={({ event }) => {
+          const startTime = event.start ? `${formatTimeInWindsor(event.start)}:` : "";
 
           return (
-            <div className="bg-secondary-light w-full rounded-md p-1 flex flex-wrap items-baseline text-xs sm:text-sm">
+            <div className="flex w-full flex-wrap items-baseline rounded-md bg-secondary-light p-1 text-xs sm:text-sm">
               <span className="truncate mr-1">{startTime}</span>
               <span className="truncate font-bold">{event.title}</span>
             </div>
           );
         }}
+        noEventsContent={
+          <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">
+            No events this month
+          </span>
+        }
       />
       <EventModal
         isOpen={modalOpen}

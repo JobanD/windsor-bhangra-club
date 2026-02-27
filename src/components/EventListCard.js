@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 
+const WINDSOR_TIME_ZONE = "America/Toronto";
+
 const EventCard = ({ event, href, onClick, badge, note }) => {
   const card = (
     <Alert className="group flex flex-col gap-2 rounded-2xl border border-primary/10 bg-white/80 px-4 py-3 text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -13,6 +15,7 @@ const EventCard = ({ event, href, onClick, badge, note }) => {
             month: "short",
             day: "numeric",
             year: "numeric",
+            timeZone: WINDSOR_TIME_ZONE,
           })}
         </span>
         {badge ? (

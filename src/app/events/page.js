@@ -1,6 +1,5 @@
 import React from "react";
 import { getEventData } from "@/contentful/data";
-import EventListInteractive from "@/components/EventListInteractive";
 import Calendar from "@/components/Calendar";
 
 export const metadata = {
@@ -31,6 +30,7 @@ export const metadata = {
 
 export default async function Events({ searchParams }) {
   const events = await getEventData();
+  const safeEvents = Array.isArray(events) ? events : [];
   const initialDate = searchParams?.date ?? null;
 
   return (
@@ -48,9 +48,6 @@ export default async function Events({ searchParams }) {
           </p>
         </div>
       </header>
-      <div className="my-10 rounded-3xl border border-white/70 bg-white/85 p-6 shadow-lg backdrop-blur">
-        <EventListInteractive events={events} />
-      </div>
       <div className="my-8 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-lg backdrop-blur">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <h2 className="text-2xl font-semibold text-primary">
@@ -64,7 +61,7 @@ export default async function Events({ searchParams }) {
             Download Yearly Calendar
           </a>
         </div>
-        <Calendar events={events} initialDate={initialDate} />
+        <Calendar events={safeEvents} initialDate={initialDate} />
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { fetchDataFromContentful, fetchImageData } from "@/contentful/data";
 import {
   Card,
@@ -8,7 +7,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import NewsDescription from "@/components/NewsDescription";
 import MediaModal from "@/components/MediaModal";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
@@ -83,10 +81,8 @@ export default async function NewsPage() {
   const newsData = await fetchDataFromContentful(
     "newspost",
     10,
-    "order=-sys.createdAt",
+    "order=-fields.date,-sys.publishedAt,-sys.createdAt",
   );
-
-  console.log("NEWS: ", newsData);
 
   if (!newsData || newsData.error) {
     return <div>Error: {newsData.error}</div>;
@@ -95,9 +91,14 @@ export default async function NewsPage() {
   // Process the news posts data
   const posts = await Promise.all(
     newsData.items.map(async (post) => {
-      const images = post.fields.image
+      const imageField = post.fields.image
+        ? Array.isArray(post.fields.image)
+          ? post.fields.image
+          : [post.fields.image]
+        : [];
+      const images = imageField.length
         ? await Promise.all(
-            post.fields.image.map(
+            imageField.map(
               async (image) => await fetchImageData(image.sys.id),
             ),
           )
@@ -106,7 +107,9 @@ export default async function NewsPage() {
 
       // Combine images and video into a single media array
       const media = [
-        ...images.map((image) => ({ type: "image", url: image })),
+        ...images
+          .filter(Boolean)
+          .map((image) => ({ type: "image", url: image })),
         ...(video
           ? [
               {
@@ -120,10 +123,16 @@ export default async function NewsPage() {
 
       return {
         ...post.fields,
+        _publishedAt: post.sys?.publishedAt ?? post.sys?.createdAt ?? "",
         media,
       };
     }),
   );
+  const sortedPosts = [...posts].sort((a, b) => {
+    const dateA = new Date(a.date ?? a._publishedAt).getTime();
+    const dateB = new Date(b.date ?? b._publishedAt).getTime();
+    return dateB - dateA;
+  });
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-16">
@@ -141,7 +150,7 @@ export default async function NewsPage() {
         </div>
       </header>
       <section className="space-y-10">
-        {posts.map((post, index) => (
+        {sortedPosts.map((post, index) => (
           <Card
             key={index}
             className="flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/90 p-4 text-left shadow-xl backdrop-blur"

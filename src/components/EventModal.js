@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 
+const WINDSOR_TIME_ZONE = "America/Toronto";
+
 function EventModal({ isOpen, onClose, eventDetails }) {
   const modalRef = useRef();
   const [mounted, setMounted] = useState(false);
@@ -41,17 +43,20 @@ function EventModal({ isOpen, onClose, eventDetails }) {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: WINDSOR_TIME_ZONE,
   });
   const formattedStartTime = eventStartDate.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
+    timeZone: WINDSOR_TIME_ZONE,
   });
   const formattedEndTime = eventEndDate
     ? eventEndDate.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
+        timeZone: WINDSOR_TIME_ZONE,
       })
     : null;
 
@@ -84,6 +89,9 @@ function EventModal({ isOpen, onClose, eventDetails }) {
             <p className="text-sm font-semibold text-primary">
               {formattedStartTime}
               {formattedEndTime ? ` - ${formattedEndTime}` : ""}
+            </p>
+            <p className="mt-1 text-xs uppercase tracking-[0.15em] text-primary/60">
+              Windsor (ET)
             </p>
           </div>
 

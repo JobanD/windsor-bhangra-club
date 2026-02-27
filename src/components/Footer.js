@@ -23,15 +23,18 @@ const Footer = () => {
             <p className="text-sm text-white/80">
               Email:{" "}
               <Link
-                href="mailto:admin@windsorbhangraclub.com"
+                href="mailto:ipchas@yahoo.com"
                 className="underline underline-offset-4"
               >
-                admin@windsorbhangraclub.com
+                ipchas@yahoo.com
               </Link>
             </p>
             <p className="text-sm text-white/80">
               Phone:{" "}
-              <Link href="tel:+15199907464" className="underline underline-offset-4">
+              <Link
+                href="tel:+15199907464"
+                className="underline underline-offset-4"
+              >
                 +1 (519) 990-7464
               </Link>
             </p>
@@ -76,7 +79,10 @@ const Footer = () => {
               <h6 className="text-base font-semibold mb-3">Quick Links</h6>
               <ul className="space-y-2 text-sm text-white/80">
                 <li>
-                  <Link href="/about" className="underline underline-offset-4 hover:text-white">
+                  <Link
+                    href="/about"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     About Us
                   </Link>
                 </li>
@@ -89,7 +95,10 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/news" className="underline underline-offset-4 hover:text-white">
+                  <Link
+                    href="/news"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     News
                   </Link>
                 </li>
@@ -115,12 +124,18 @@ const Footer = () => {
               <h6 className="text-base font-semibold mb-3">Sitemap</h6>
               <ul className="space-y-2 text-sm text-white/80">
                 <li>
-                  <Link href="/" className="underline underline-offset-4 hover:text-white">
+                  <Link
+                    href="/"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="underline underline-offset-4 hover:text-white">
+                  <Link
+                    href="/about"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     About Us
                   </Link>
                 </li>

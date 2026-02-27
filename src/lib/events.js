@@ -4,6 +4,7 @@ const RECURRENCE_LABELS = {
   "bi-weekly": "Biweekly",
   monthly: "Monthly",
 };
+const WINDSOR_TIME_ZONE = "America/Toronto";
 
 const toDate = (value) => {
   if (!value) return null;
@@ -12,9 +13,13 @@ const toDate = (value) => {
 
 const getTimeKey = (date) => {
   if (!date) return "unknown";
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  return `${hours}:${minutes}`;
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: WINDSOR_TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  return formatter.format(date);
 };
 
 const getSeriesKey = (event) => {
@@ -38,8 +43,9 @@ const getSeriesKey = (event) => {
 
 export const getUpcomingEventGroups = (events, today = new Date()) => {
   const now = toDate(today) ?? new Date();
+  const sourceEvents = Array.isArray(events) ? events : [];
 
-  const upcoming = (events ?? []).filter((event) => {
+  const upcoming = sourceEvents.filter((event) => {
     const start = toDate(event?.start);
     return start && start >= now;
   });
@@ -90,4 +96,3 @@ export const getUpcomingEventGroups = (events, today = new Date()) => {
     rawUpcomingCount: upcoming.length,
   };
 };
-
